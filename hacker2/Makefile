@@ -1,7 +1,4 @@
-all: crack beer caesar vigenere
-
-crack: crack.c
-	gcc -ggdb -std=c99 -Wall -Werror -Wformat=0 -o crack crack.c -lcc50 -lcrypt
+all: beer caesar vigenere
 
 beer: beer.c
 	gcc -ggdb -std=c99 -Wall -Werror -Wformat=0 -o beer beer.c -lcc50 -lm

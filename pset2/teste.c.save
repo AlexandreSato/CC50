@@ -1,0 +1,20 @@
+//Testar se a biblioteca do CC50 está instalada
+
+#include <stdio.h>
+#include <cc50.h>
+#include <string.h>
+
+int
+main (void)
+  {
+  printf ("\nDigite uma frase\n");
+  char *string = GetString();
+  for (int i = 0; i < strlen(string); i++)
+	{
+	printf ("%c", string[i]);
+	}
+  printf ("\n");
+  return 0;
+  }
+
+

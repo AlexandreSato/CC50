@@ -15,3 +15,7 @@ generate: generate.c
 
 clean:
 	rm -f *.o a.out core find generate
+
+minha_funcao: minha_funcao.c
+	gcc -ggdb -std=c99 -Wall -Werror -Wformat=0 -o minha_funcao minha_funcao.c -lcc50
+

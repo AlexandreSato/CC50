@@ -1,5 +1,5 @@
  /* Programa para criar minha primeira função perzonalizada no C chamada "swap" que irá trocar a string A pela B
-  * autor: sato_alexandre@hotmai.com em 30/10/2020 */
+  * autor: sato_alexandre@hotmail.com em 30/10/2020 */
 
 #include <stdio.h>
 #include <cc50.h>

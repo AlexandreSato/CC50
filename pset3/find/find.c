@@ -4,7 +4,7 @@
  * CC50
  * Pset 3
  *
- * Prompts user for as many as HAY_MAX values until EOF is reached, 
+ * Prompts user for as many as HAY_MAX values until EOF is reached,
  * then proceeds to search that "haystack" of values for given needle.
  *
  * Usage: find needle

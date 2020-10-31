@@ -38,12 +38,6 @@ void
 sort(int values[], int n)
 {
     // TODO: implement an O(n^2) sort
-    for ( int i = 0; i < n; i++)  //printing the numbers before sort
-    {
-	printf ("%d\n", values[i]);
-    }
-
-    //sorting the numbers
     for (int k = 0; k < n; k++)
     {
 	int SMALLEST = k;
@@ -54,13 +48,5 @@ sort(int values[], int n)
 	}
         int SWAP = values[k]; values[k] = values[SMALLEST]; values[SMALLEST] = SWAP; //Swaping the numbers
     }
-
-    printf ("\n");
-
-    for ( int i = 0; i < n; i++) //printing the numbers after sort
-    {
-	printf ("%d\n", values[i]);
-    }
-
     return;
 }

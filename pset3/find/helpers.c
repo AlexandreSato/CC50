@@ -19,14 +19,40 @@
  * Returns true if value is in array of n values, else false.
  */
 
-bool 
+bool
 search(int value, int array[], int n)
 {
-    // TODO: re-implement as binary search
-    for (int i = 0; i < n; i++)
+    // TODO: re-implement as binary search , Start Work in 01/11/2020
+/*    for (int i = 0; i < n; i++)  //linear search
         if (array[i] == value)
             return true;
-    return false;
+    return false;*/
+
+
+   //binary search
+	int LEFT = 0;
+	int RIGTH = n;
+	int DELTA =  -LEFT  +RIGTH;
+	while (DELTA != 0)
+	{
+		DELTA =  -LEFT  +RIGTH;
+		int INCREMENT = DELTA/2 +0.5;
+		int POSITION = LEFT + INCREMENT;
+		if (array[POSITION] == value)
+		{
+			printf ("\n needle %d found in [%d] position of array\n", array[POSITION], POSITION);
+			return true;
+		}
+		if (array[POSITION] > value)
+		{
+		RIGTH = POSITION;
+		}
+		else
+		{
+		LEFT = POSITION;
+		}
+	}
+	return false;
 }
 
 
@@ -34,10 +60,10 @@ search(int value, int array[], int n)
  * Sorts array of n values.
  */
 
-void 
+void
 sort(int values[], int n)
 {
-    // TODO: implement an O(n^2) sort
+    // TODO: implement an O(n^2) sort , OK implemented in 31/10/2020
     for (int k = 0; k < n; k++)
     {
 	int SMALLEST = k;

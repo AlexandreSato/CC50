@@ -11,7 +11,7 @@
  *
  * where needle is the value to find in a haystack of values
  ***************************************************************************/
-       
+
 #include <cc50.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,7 +46,7 @@ main(int argc, char *argv[])
         int straw = GetInt();
         if (straw == INT_MAX)
             break;
-        
+
         // add hay to stack
         haystack[size] = straw;
     }
@@ -55,14 +55,16 @@ main(int argc, char *argv[])
     // sort the haystack
     for (int i=0; i<size; i++)//print before sort
     {
-	printf ("\n%d", haystack[i]);
+	printf ("[%2d]%6d    ", i, haystack[i]);
     }
     sort(haystack, size);
+
     printf ("\n");
     for (int i=0; i<size; i++)//print after sort
     {
-	printf ("\n%d", haystack[i]);
+	printf ("[%2d]%6d    ", i, haystack[i]);
     }
+    printf ("\n");
 
     // try to find needle in haystack
     if (search(needle, haystack, size))

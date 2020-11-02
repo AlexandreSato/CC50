@@ -29,15 +29,16 @@ search(int value, int array[], int n)
     return false;*/
 
 
-   //binary search
+   //binary search, DONE in 01/11/2020
 	int LEFT = 0;
 	int RIGTH = n;
 	int DELTA =  -LEFT  +RIGTH;
-	while (DELTA != 0)
+	while (DELTA > 1)
 	{
 		DELTA =  -LEFT  +RIGTH;
-		int INCREMENT = DELTA/2 +0.5;
+		int INCREMENT = DELTA/2 ;
 		int POSITION = LEFT + INCREMENT;
+		printf ("\n[%d] %d", POSITION, array[POSITION]);
 		if (array[POSITION] == value)
 		{
 			printf ("\n needle %d found in [%d] position of array\n", array[POSITION], POSITION);

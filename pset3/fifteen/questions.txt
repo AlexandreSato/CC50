@@ -1,9 +1,23 @@
 questions.txt
 
+Aluno: Alexandre Nobuharu Sato   07.11.2020
+
 CC50
 Set de Problemas 3
 
 i.   TODO
-ii.  TODO
-iii. TODO
-iv.  TODO
+R: o programa fifteen é um jogo dos 15 que além do tradicional "tabuleiro" de dimensão 4x4 pode ser jogado com outros tamanhos de 3x3 até o 9x9.
+
+ii.  TODO Que tipo de estrutura de dados representa o tabuleiro do jogo?
+R: Representa uma matriz, Array.
+
+iii. TODO Qual função é chamada para cumprimentar o jogador no início do jogo?
+R: greet()
+
+iv.  TODO Que funções voce precisa aparentemente implementar?
+R: Aparentemente eu preciso implementar as funções:
+
+1- init();
+2- draw();
+3- move();
+4- won();

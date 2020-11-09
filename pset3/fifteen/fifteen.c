@@ -1,4 +1,4 @@
-/***************************************************************************
+ /***************************************************************************
  * fifteen.c
  *
  * CC50
@@ -13,8 +13,10 @@
  *
  * Note that usleep is obsolete, but it offers more granularity than
  * sleep and is simpler to use than nanosleep; `man usleep` for more.
+ *
+ * Aluno: Alexandre Nobuharu Sato em 07/11/2020 sato_alexandre@hotmail.com
  ***************************************************************************/
- 
+
 #define _XOPEN_SOURCE 500
 
 #include <cc50.h>
@@ -113,7 +115,8 @@ void
 clear(void)
 {
     printf("\033[2J");
-    printf("\033[%d;%dH", 0, 0);
+    printf("\033[%d;%dH", 15, 0);
+    printf("\033[1;93m");
 }
 
 
@@ -125,7 +128,7 @@ void
 greet(void)
 {
     clear();
-    printf("WELCOME TO THE GAME OF FIFTEEN\n");
+    printf("WELCOME TO THE GAME OF FIFTEEN\nBEM VINDO AO JOGO DOS 15\n");
     usleep(2000000);
 }
 
@@ -138,7 +141,30 @@ greet(void)
 void
 init(void)
 {
-    // TODO
+	 // TODO 08/11/2020, imputing tiles on the board
+	int TILE = d*d -1;
+	for (int i=0; i<d; i++)
+	{
+		for (int j=0; j<d; j++)
+		{
+			if (d*d %2 == 0 && i == d -1 && j == d -3)//inverting the 2 with 1 at the end of board
+			{
+				board[i][j]= 1;
+				TILE--;
+			}
+			else if (d*d %2 == 0 && i == d -1 && j == d -2) //inverting the 2 with 1 at the end of board
+			{
+				board[i][j]= 2;
+				TILE--;
+			}
+			else
+			{
+				board[i][j]= TILE;
+				TILE--;
+			}
+		}
+	}
+
 }
 
 
@@ -149,7 +175,19 @@ init(void)
 void
 draw(void)
 {
-    // TODO
+	// TODO 08/11/2020, printing the board
+	for (int i=0; i<d; i++)
+	{
+		for (int j=0; j<d; j++)
+		{
+			if (board[i][j] == 0)
+				printf ("%5c", 95);//printing "-" character
+			else
+				printf ("%5d", board[i][j]);
+		}
+		printf ("\n\n\n");
+	}
+	printf ("\n\n");
 }
 
 
@@ -167,7 +205,7 @@ move(int tile)
 
 
 /*
- * Returns true if game is won (i.e., board is in winning configuration), 
+ * Returns true if game is won (i.e., board is in winning configuration),
  * else false.
  */
 

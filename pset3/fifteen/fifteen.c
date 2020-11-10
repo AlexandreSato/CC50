@@ -114,9 +114,9 @@ main(int argc, char *argv[])
 void
 clear(void)
 {
-    printf("\033[2J");
-    printf("\033[%d;%dH", 15, 0);
-    printf("\033[1;93m");
+    printf("\033[2J");//Clear Screen
+    printf("\033[%d;%dH", 15, 0);//Move the draw
+    printf("\033[1;93m");//Change Colors
 }
 
 
@@ -128,7 +128,7 @@ void
 greet(void)
 {
     clear();
-    printf("WELCOME TO THE GAME OF FIFTEEN\nBEM VINDO AO JOGO DOS 15\n");
+    printf("WELCOME TO THE GAME OF FIFTEEN\nBEM  VINDO  AO  JOGO  DOS  QUINZE\n");
     usleep(2000000);
 }
 
@@ -141,7 +141,7 @@ greet(void)
 void
 init(void)
 {
-	 // TODO 08/11/2020, imputing tiles on the board
+	 // TODO Ok! in 08/11/2020, imputing tiles on the board
 	int TILE = d*d -1;
 	for (int i=0; i<d; i++)
 	{
@@ -175,7 +175,7 @@ init(void)
 void
 draw(void)
 {
-	// TODO 08/11/2020, printing the board
+	// TODO Ok! in 08/11/2020, printing the board
 	for (int i=0; i<d; i++)
 	{
 		for (int j=0; j<d; j++)
@@ -199,10 +199,35 @@ draw(void)
 bool
 move(int tile)
 {
-    // TODO
-    return false;
-}
+    // TODO Ok! in 09/11/2020
+	int I_TALE_POSITION, J_TALE_POSITION; //Index positions of the tile on the array
+	int I_GAP, J_GAP; //Index positions of the Gap    char "_"95 << int'0'
+	for (int i=0; i<d; i++)//Searching TILE and GAP postions on the array
+	{
+		for (int j=0; j<d; j++)
+		{
+			if (board[i][j] == tile)
+			{
+				I_TALE_POSITION = i;
+				J_TALE_POSITION = j;
+			}
+			if (board[i][j] == 0)
+			{
+				I_GAP = i;
+				J_GAP = j;
+			}
+		}
+	}
 
+	if ((abs(I_TALE_POSITION-I_GAP)==0&&abs(J_TALE_POSITION-J_GAP)==1) || (abs(I_TALE_POSITION-I_GAP)==1&&abs(J_TALE_POSITION-J_GAP)==0))
+	{
+		board[I_GAP][J_GAP] = board[I_TALE_POSITION][J_TALE_POSITION];
+		board[I_TALE_POSITION][J_TALE_POSITION] = 0;
+		return true;
+	}
+	else
+		return false;
+}
 
 /*
  * Returns true if game is won (i.e., board is in winning configuration),
@@ -212,6 +237,20 @@ move(int tile)
 bool
 won(void)
 {
-    // TODO
-    return false;
+    // TODO Ok!! in 09/11/2020
+	int TEST = 1;
+	for (int i=0; i<d; i++)
+	{
+		for (int j=0; j<d; j++)
+		{
+			if (i==d-1 && j==d-1)
+				TEST = 0;
+			if (board[i][j] != TEST)
+				return false;
+			TEST++;
+		}
+	}
+
+
+    return true;
 }

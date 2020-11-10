@@ -4,14 +4,14 @@
  * CC50
  * Pset 3
  *
- * Prompts user for as many as HAY_MAX values until EOF is reached, 
+ * Prompts user for as many as HAY_MAX values until EOF is reached,
  * then proceeds to search that "haystack" of values for given needle.
  *
  * Usage: find needle
  *
  * where needle is the value to find in a haystack of values
  ***************************************************************************/
-       
+
 #include <cc50.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,18 +42,29 @@ main(int argc, char *argv[])
     for (size = 0; size < HAY_MAX; size++)
     {
         // wait for hay until EOF
-        printf("\nhaystack[%d] = ", size);
+        printf("haystack[%d] = ", size);
         int straw = GetInt();
         if (straw == INT_MAX)
             break;
-        
+
         // add hay to stack
         haystack[size] = straw;
     }
     printf("\n");
 
     // sort the haystack
+    for (int i=0; i<size; i++)//print before sort
+    {
+	printf ("After Sort\n[%2d]%5d    ", i, haystack[i]);
+    }
     sort(haystack, size);
+
+    printf ("\n");
+    for (int i=0; i<size; i++)//print after sort
+    {
+	printf ("Before Sort\n[%2d]%5d    ", i, haystack[i]);
+    }
+    printf ("\n");
 
     // try to find needle in haystack
     if (search(needle, haystack, size))

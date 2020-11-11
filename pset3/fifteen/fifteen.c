@@ -244,9 +244,12 @@ won(void)
 		for (int j=0; j<d; j++)
 		{
 			if (i==d-1 && j==d-1)
-				TEST = 0;
+				TEST = 0; //last position
 			if (board[i][j] != TEST)
-				return false;
+			{
+			return false;
+			break;
+			}
 			TEST++;
 		}
 	}

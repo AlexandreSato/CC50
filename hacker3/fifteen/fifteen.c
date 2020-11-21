@@ -47,6 +47,7 @@ void init(void);
 void draw(void);
 bool move(int tile);
 bool won(void);
+void god(void);//Hacker Versions
 
 
 int
@@ -95,7 +96,9 @@ main(int argc, char *argv[])
 	int tile;
 	char *STRING = GetString();
 	if (strncmp(STRING, "god", 3) == 0) //Invoking the GOD mode cheat
-		break;
+	{
+		god();
+	}
 	else
         	tile = atoi(STRING);
 
@@ -302,4 +305,30 @@ won(void)
 
 
     return true;
+}
+
+void
+god(void)
+{
+	printf("\n CHAMOU GOD MODE !\n");
+	int I_GAP, J_GAP, I_ONE, J_ONE;
+	for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
+	{
+		for (int j=0; j<d; j++)
+		{
+			if (board[i][j] == 0)
+			{
+				I_GAP = i;
+				J_GAP = j;
+			}
+			if (board[i][j] == 1)
+			{
+				I_ONE = i;
+				J_ONE = j;
+			}
+		}
+	}
+	if (I_GAP < I_ONE)
+		printf ("O espaço vazio está acima do 1\n GAP I:%d J:%d\n  1  I:%d j:%d\n", I_GAP, J_GAP, I_ONE, J_ONE);
+	GetString();
 }

@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
+#include <string.h>
 
 
 // constants
@@ -91,7 +92,12 @@ main(int argc, char *argv[])
 
         // prompt for move
         printf("Tile to move: ");
-        int tile = GetInt();
+	int tile;
+	char *STRING = GetString();
+	if (strncmp(STRING, "god", 3) == 0) //Invoking the GOD mode cheat
+		break;
+	else
+        	tile = atoi(STRING);
 
         // move if possible, else report illegality
         if (!move(tile))
@@ -130,7 +136,7 @@ void
 greet(void)
 {
     clear();
-    printf("WELCOME TO THE GAME OF FIFTEEN\nBEM  VINDO  AO  JOGO  DOS  QUINZE\n\n\nby: Alexandre Nobuharu Sato em 18/11/2020");
+    printf("WELCOME TO THE GAME OF FIFTEEN\nBEM  VINDO  AO  JOGO  DOS  QUINZE\n  por: Alexandre Nobuharu Sato\n");
     usleep(2000000);
 }
 

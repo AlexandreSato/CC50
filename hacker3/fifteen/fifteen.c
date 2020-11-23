@@ -100,15 +100,17 @@ main(int argc, char *argv[])
 		god();
 	}
 	else
-        	tile = atoi(STRING);
-
-        // move if possible, else report illegality
-        if (!move(tile))
         {
-            printf("\nIllegal move.\n");
-            usleep(500000);
-        }
+		tile = atoi(STRING);
 
+        	// move if possible, else report illegality
+        	if (!move(tile))
+        	{
+            		printf("\nIllegal move.\n");
+	            	usleep(500000);
+        	}
+
+	}
         // sleep thread for animation's sake
         usleep(500000);
     }
@@ -307,6 +309,8 @@ won(void)
     return true;
 }
 
+
+
 void
 god(void)
 {
@@ -329,6 +333,23 @@ god(void)
 		}
 	}
 	if (I_GAP < I_ONE)
-		printf ("O espaço vazio está acima do 1\n GAP I:%d J:%d\n  1  I:%d j:%d\n", I_GAP, J_GAP, I_ONE, J_ONE);
-	GetString();
+	{
+			printf ("O espaço vazio está acima do 1\n GAP I:%d J:%d\n  1  I:%d j:%d\n", I_GAP, J_GAP, I_ONE, J_ONE);
+		GetString();
+
+		int JDELTA = J_ONE - J_GAP;
+		int INCREMENT = JDELTA/abs(JDELTA);
+		for (int i = 0; i < abs(JDELTA); i++)
+		{
+			board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT];
+			board[I_GAP][J_GAP +INCREMENT] = 0;
+			J_GAP = J_GAP +INCREMENT;
+			clear();
+			draw();
+			usleep(500000);
+		}
+	}
+	return;
 }
+
+

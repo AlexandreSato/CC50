@@ -30,7 +30,7 @@
 // constants
 #define DIM_MIN 3
 #define DIM_MAX 9
-#define SHUFFLE 10000
+#define SHUFFLE 100000
 
 
 // board
@@ -45,9 +45,9 @@ void clear(void);
 void greet(void);
 void init(void);
 void draw(void);
-bool move(int tile);
+bool move(int tile); //line250
 bool won(void);
-void god(void);//Hacker Versions
+void god(void);//Hacker Versions | line314
 
 
 int
@@ -179,41 +179,40 @@ init(void)
 	}
 
 	//Introducing randomness
+	int I_GAP = d -1, J_GAP = d -1;
 	srand( (unsigned int) time(NULL));
-	for (int i = 0, MOVEMENT = 0, I_GAP, J_GAP; i < SHUFFLE; i++ )
+	int i = SHUFFLE, MOVEMENT;
+	while ( i > 0 )
 	{
-		for (int i=0; i<d; i++)//Searching GAP postions on the array
-		{
-			for (int j=0; j<d; j++)
-			{
-				if (board[i][j] == 0)
-				{
-					I_GAP = i;
-					J_GAP = j;
-				}
-			}
-		}
 		MOVEMENT = rand() % 4; // 0 = up       1 = right      2 = down      3 = left
 		if (MOVEMENT == 0 && I_GAP != 0)//up
 		{
 			board[I_GAP][J_GAP] = board[I_GAP -1][J_GAP];
 			board[I_GAP -1][J_GAP] = 0;
+			I_GAP = I_GAP -1;
+			i--;
 		}
 		if (MOVEMENT == 1 && J_GAP != d -1)//right
 		{
 			board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1];
 			board[I_GAP][J_GAP +1] = 0;
+			J_GAP = J_GAP +1;
+			i--;
 		}
 
 		if (MOVEMENT == 2 && I_GAP != d -1)//down
 		{
 			board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP];
 			board[I_GAP +1][J_GAP] = 0;
+			I_GAP = I_GAP +1;
+			i--;
 		}
 		if (MOVEMENT == 3 && J_GAP != 0)//left
 		{
 			board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1];
 			board[I_GAP][J_GAP -1] = 0;
+			J_GAP = J_GAP -1;
+			i--;
 		}
 	}
 }
@@ -270,10 +269,38 @@ move(int tile)
 		}
 	}
 
-	if ((abs(I_TALE_POSITION-I_GAP)==0&&abs(J_TALE_POSITION-J_GAP)==1) || (abs(I_TALE_POSITION-I_GAP)==1&&abs(J_TALE_POSITION-J_GAP)==0))
+	if (I_TALE_POSITION == I_GAP)
 	{
-		board[I_GAP][J_GAP] = board[I_TALE_POSITION][J_TALE_POSITION];
-		board[I_TALE_POSITION][J_TALE_POSITION] = 0;
+		int JDELTA = J_TALE_POSITION - J_GAP;
+		int INCREMENT = JDELTA/abs(JDELTA);
+		for (int i = 0; i < abs(JDELTA); i++)
+		{
+			board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT];
+			board[I_GAP][J_GAP +INCREMENT] = 0;
+			J_GAP = J_GAP +INCREMENT;
+			clear();
+			draw();
+			usleep(500000);
+		}
+
+		return true;
+	}
+
+
+	if (J_TALE_POSITION == J_GAP)
+	{
+		int IDELTA = I_TALE_POSITION - I_GAP;
+		int INCREMENT = IDELTA/abs(IDELTA);
+		for (int i = 0; i < abs(IDELTA); i++)
+		{
+			board[I_GAP][J_GAP] = board[I_GAP +INCREMENT][J_GAP];
+			board[I_GAP +INCREMENT][J_GAP] = 0;
+			I_GAP = I_GAP +INCREMENT;
+			clear();
+			draw();
+			usleep(500000);
+		}
+
 		return true;
 	}
 	else

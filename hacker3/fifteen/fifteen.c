@@ -48,6 +48,7 @@ void draw(void);
 bool move(int tile); //line250
 bool won(void);
 void god(void);//Hacker Versions | line342
+void begin_god(int tile, int i_destin, int j_destin);
 
 
 int
@@ -344,7 +345,25 @@ void
 god(void)
 {
 	printf("\n CHAMOU GOD MODE !\n");
-	int I_GAP, J_GAP, I_ONE, J_ONE;
+	for(int i = 0, TALE = 1; i < d; i++)
+	{
+		for(int j = 0; j < d; j++, TALE++)
+		{
+//			if(j == d -1)
+//				begin_first_engage();
+			if(TALE != d * d)
+				begin_god(TALE, i, j);
+//			if(j == d -1)
+//				end_first_engage();
+		}
+	}
+	return;
+}
+
+void
+begin_god(int tile, int i_destin, int j_destin)
+{
+	int I_GAP, J_GAP, I_TALE, J_TALE;
 	for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
 	{
 		for (int j=0; j<d; j++)
@@ -354,157 +373,145 @@ god(void)
 				I_GAP = i;
 				J_GAP = j;
 			}
-			if (board[i][j] == 1)
+			if (board[i][j] == tile)
 			{
-				I_ONE = i;
-				J_ONE = j;
+				I_TALE = i;
+				J_TALE = j;
 			}
 		}
 	}
 
-/*
-	if (I_GAP < I_ONE)
-	{
-			printf ("O espaço vazio está acima do 1\n GAP I:%d J:%d\n  1  I:%d j:%d\n", I_GAP, J_GAP, I_ONE, J_ONE);
-		GetString();
-
-		int JDELTA = J_ONE - J_GAP;
-		int INCREMENT = JDELTA/abs(JDELTA);
-		for (int i = 0; i < abs(JDELTA); i++)
-		{
-			board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT];
-			board[I_GAP][J_GAP +INCREMENT] = 0;
-			J_GAP = J_GAP +INCREMENT;
-			clear();
-			draw();
-			usleep(500000);
-		}
-	}
-*/
-	if (J_ONE != 0) //POSICIONANDO HORIZONTALMENTE (escalar no macro fluxo para generalizar)
+	if (J_TALE != j_destin) //POSICIONANDO A PEÇA NA COLUNA "j_destin"
 	{
 
-		int TEMP = J_ONE;
-		for(int i = 0; i < TEMP; i++)
+		int TEMP = j_destin - J_TALE;
+		if (TEMP != 0)
 		{
-			if (I_GAP == I_ONE && J_GAP > J_ONE)//se o vazio está a direita do 1 e na mesma linha
+			int INCREMENT = TEMP/abs(TEMP);
+			for(int i = 0; i < abs(TEMP); i++)
 			{
-				if(I_ONE == d -1)
+				if (I_GAP == I_TALE)//se o vazio está na mesma linha
 				{
-					board[I_GAP][J_GAP] = board[I_GAP -1][J_GAP];//Swap do Gap com a peça de cima
-					board[I_GAP -1][J_GAP] = 0;
-					I_GAP = I_GAP -1;
+					if(I_TALE == d -1)//Se a peça está na última linha
+					{
+						board[I_GAP][J_GAP] = board[I_GAP -1][J_GAP];//Swap do Gap com a peça de cima
+						board[I_GAP -1][J_GAP] = 0;
+						I_GAP = I_GAP -1;
+					}
+					else
+					{
+						board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP];//Swap de Gap com a peça de baixo
+						board[I_GAP +1][J_GAP] = 0;
+						I_GAP = I_GAP +1;
+					}
+					clear();
+					draw();
+					usleep(500000);
 				}
-				else
+				int JDELTA = (J_TALE +INCREMENT) - J_GAP;//Movendo horizontalmente a esquerda ou a direita da peça
+				if (JDELTA != 0)
 				{
-					board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP];//Swap de Gap com a peça de baixo
-					board[I_GAP +1][J_GAP] = 0;
-					I_GAP = I_GAP +1;
+					int INCREMENT1 = JDELTA/abs(JDELTA);
+					for (int i = 0; i < abs(JDELTA); i++)
+					{
+						board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT1];
+						board[I_GAP][J_GAP +INCREMENT1] = 0;
+						J_GAP = J_GAP +INCREMENT1;
+						clear();
+						draw();
+						usleep(500000);
+					}
 				}
+				int IDELTA = I_TALE - I_GAP;//Movendo verticalmente na altura da peça
+				if (IDELTA != 0)
+				{
+					int INCREMENT2 = IDELTA/abs(IDELTA);
+					for (int i = 0; i < abs(IDELTA); i++)
+					{
+						board[I_GAP][J_GAP] = board[I_GAP +INCREMENT2][J_GAP];
+						board[I_GAP +INCREMENT2][J_GAP] = 0;
+						I_GAP = I_GAP +INCREMENT2;
+						clear();
+						draw();
+						usleep(500000);
+					}
+				}
+				board[I_GAP][J_GAP] = board[I_GAP][J_GAP -INCREMENT]; //Swap com a peça à direita ou à esquerda
+				board[I_GAP][J_GAP -INCREMENT] = 0;
+				J_TALE = J_GAP;
+				J_GAP = J_GAP -INCREMENT;
 				clear();
 				draw();
 				usleep(500000);
 			}
-			int JDELTA = J_ONE -1 - J_GAP;//Movendo horizontalmente a esquerda da peça 1
-			if (JDELTA != 0)
-			{
-				int INCREMENT = JDELTA/abs(JDELTA);
-				for (int i = 0; i < abs(JDELTA); i++)
-				{
-					board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT];
-					board[I_GAP][J_GAP +INCREMENT] = 0;
-					J_GAP = J_GAP +INCREMENT;
-					clear();
-					draw();
-					usleep(500000);
-				}
-			}
-			int IDELTA = I_ONE - I_GAP;//Movendo verticalmente na altura da peça 1
-			if (IDELTA != 0)
-			{
-				int INCREMENT2 = IDELTA/abs(IDELTA);
-				for (int i = 0; i < abs(IDELTA); i++)
-				{
-					board[I_GAP][J_GAP] = board[I_GAP +INCREMENT2][J_GAP];
-					board[I_GAP +INCREMENT2][J_GAP] = 0;
-					I_GAP = I_GAP +INCREMENT2;
-					clear();
-					draw();
-					usleep(500000);
-				}
-			}
-			board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1]; //Swap com o 1 a direita
-			board[I_GAP][J_GAP +1] = 0;
-			J_ONE = J_GAP;
-			J_GAP = J_GAP +1;
-			clear();
-			draw();
-			usleep(500000);
 		}
-	}//FIM POSICIONANDO HORIZONTALMENTE
+	}//FIM POSICIONANDO A PEÇA NA COLUNA "j_destin"
 
-	if (I_ONE != 0) //INÍCIO POSICIONANDO VERTICALMENTE (escalar no macro fluxo para generalizar)
+	if (I_TALE != i_destin) //POSICIONANDO A PEÇA NA LINHA "i_destin"
 	{
 
-		int TEMP = I_ONE;
-		for(int i = 0; i < TEMP; i++)
+		int TEMP = i_destin - I_TALE;
+		if (TEMP != 0)
 		{
-			if (J_GAP == J_ONE && I_GAP > I_ONE)//se o vazio está abaixo do 1 e na mesma coluna
+			int INCREMENT = TEMP/abs(TEMP);
+			for(int i = 0; i < abs(TEMP); i++)
 			{
-				if(I_ONE == d -1)//se a coluna é última da direita
+				if (J_GAP == J_TALE && I_GAP > I_TALE)//se o vazio está na abaixo da peça e na mesma coluna
 				{
-					board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1];//Swap do Gap com a peça da esquerda
-					board[I_GAP][J_GAP -1] = 0;
-					J_GAP = J_GAP -1;
+					if(J_TALE == d -1)//Se a peça está na última coluna
+					{
+						board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1];//Swap do Gap com a peça da esquerda
+						board[I_GAP][J_GAP -1] = 0;
+						J_GAP = J_GAP -1;
+					}
+					else
+					{
+						board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1];//Swap de Gap com a peça da direita
+						board[I_GAP][J_GAP +1] = 0;
+						J_GAP = J_GAP +1;
+					}
+					clear();
+					draw();
+					usleep(500000);
 				}
-				else
+				int IDELTA = (I_TALE +INCREMENT) - I_GAP;//Movendo verticalmente acima ou abaixo da peça
+				if (IDELTA != 0)
 				{
-					board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1];//Swap de Gap com a peça da direita
-					board[I_GAP][J_GAP +1] = 0;
-					J_GAP = J_GAP +1;
+					int INCREMENT1 = IDELTA/abs(IDELTA);
+					for (int i = 0; i < abs(IDELTA); i++)
+					{
+						board[I_GAP][J_GAP] = board[I_GAP +INCREMENT1][J_GAP];
+						board[I_GAP +INCREMENT1][J_GAP] = 0;
+						I_GAP = I_GAP +INCREMENT1;
+						clear();
+						draw();
+						usleep(500000);
+					}
 				}
+				int JDELTA = J_TALE - J_GAP;//Movendo horizontalmente acima da peça
+				if (JDELTA != 0)
+				{
+					int INCREMENT2 = JDELTA/abs(JDELTA);
+					for (int i = 0; i < abs(JDELTA); i++)
+					{
+						board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT2];
+						board[I_GAP][J_GAP +INCREMENT2] = 0;
+						J_GAP = J_GAP +INCREMENT2;
+						clear();
+						draw();
+						usleep(500000);
+					}
+				}
+				board[I_GAP][J_GAP] = board[I_GAP -INCREMENT][J_GAP]; //Swap com a peça a baixo (ou acima)
+				board[I_GAP -INCREMENT][J_GAP] = 0;
+				I_TALE = I_GAP;
+				I_GAP = I_GAP -INCREMENT;
 				clear();
 				draw();
 				usleep(500000);
 			}
-			int IDELTA = (I_ONE -1) - I_GAP;//Movendo verticalmente o GAP para linha de cima da peça 1
-			if (IDELTA != 0)
-			{
-				int INCREMENT = IDELTA/abs(IDELTA);
-				for (int i = 0; i < abs(IDELTA); i++)
-				{
-					board[I_GAP][J_GAP] = board[I_GAP +INCREMENT][J_GAP];
-					board[I_GAP +INCREMENT][J_GAP] = 0;
-					I_GAP = I_GAP +INCREMENT;
-					clear();
-					draw();
-					usleep(500000);
-				}
-			}
-			int JDELTA = J_ONE - J_GAP;//Movendo horizontalmente o GAP para coluna da peça 1
-			if (JDELTA != 0)
-			{
-				int INCREMENT2 = JDELTA/abs(JDELTA);
-				for (int i = 0; i < abs(JDELTA); i++)
-				{
-					board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT2];
-					board[I_GAP][J_GAP +INCREMENT2] = 0;
-					J_GAP = J_GAP +INCREMENT2;
-					clear();
-					draw();
-					usleep(500000);
-				}
-			}
-			board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP]; //Swap com o 1 abaixo
-			board[I_GAP +1][J_GAP] = 0;
-			I_ONE = I_GAP;
-			I_GAP = I_GAP +1;
-			clear();
-			draw();
-			usleep(500000);
 		}
-	}//FIM POSICIONANDO VERTICALMENTE
-
+	}//FIM POSICIONANDO A PEÇA NA LINHA "i_destin"
 	return;
 }
 

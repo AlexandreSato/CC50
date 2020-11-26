@@ -381,11 +381,11 @@ god(void)
 		}
 	}
 */
-	if (J_ONE != 0)
+	if (J_ONE != 0) //POSICIONANDO HORIZONTALMENTE (escalar no macro fluxo para generalizar)
 	{
 
 		int TEMP = J_ONE;
-		for(int i = 0; i < TEMP; i++)//POSICIONANDO HORIZONTALMENTE (escalar no macro fluxo para generalizar)
+		for(int i = 0; i < TEMP; i++)
 		{
 			if (I_GAP == I_ONE && J_GAP > J_ONE)//se o vazio está a direita do 1 e na mesma linha
 			{
@@ -441,7 +441,70 @@ god(void)
 			draw();
 			usleep(500000);
 		}
-	}
+	}//FIM POSICIONANDO HORIZONTALMENTE
+
+	if (I_ONE != 0) //INÍCIO POSICIONANDO VERTICALMENTE (escalar no macro fluxo para generalizar)
+	{
+
+		int TEMP = I_ONE;
+		for(int i = 0; i < TEMP; i++)
+		{
+			if (J_GAP == J_ONE && I_GAP > I_ONE)//se o vazio está abaixo do 1 e na mesma coluna
+			{
+				if(I_ONE == d -1)//se a coluna é última da direita
+				{
+					board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1];//Swap do Gap com a peça da esquerda
+					board[I_GAP][J_GAP -1] = 0;
+					J_GAP = J_GAP -1;
+				}
+				else
+				{
+					board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1];//Swap de Gap com a peça da direita
+					board[I_GAP][J_GAP +1] = 0;
+					J_GAP = J_GAP +1;
+				}
+				clear();
+				draw();
+				usleep(500000);
+			}
+			int IDELTA = (I_ONE -1) - I_GAP;//Movendo verticalmente o GAP para linha de cima da peça 1
+			if (IDELTA != 0)
+			{
+				int INCREMENT = IDELTA/abs(IDELTA);
+				for (int i = 0; i < abs(IDELTA); i++)
+				{
+					board[I_GAP][J_GAP] = board[I_GAP +INCREMENT][J_GAP];
+					board[I_GAP +INCREMENT][J_GAP] = 0;
+					I_GAP = I_GAP +INCREMENT;
+					clear();
+					draw();
+					usleep(500000);
+				}
+			}
+			int JDELTA = J_ONE - J_GAP;//Movendo horizontalmente o GAP para coluna da peça 1
+			if (JDELTA != 0)
+			{
+				int INCREMENT2 = JDELTA/abs(JDELTA);
+				for (int i = 0; i < abs(JDELTA); i++)
+				{
+					board[I_GAP][J_GAP] = board[I_GAP][J_GAP +INCREMENT2];
+					board[I_GAP][J_GAP +INCREMENT2] = 0;
+					J_GAP = J_GAP +INCREMENT2;
+					clear();
+					draw();
+					usleep(500000);
+				}
+			}
+			board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP]; //Swap com o 1 abaixo
+			board[I_GAP +1][J_GAP] = 0;
+			I_ONE = I_GAP;
+			I_GAP = I_GAP +1;
+			clear();
+			draw();
+			usleep(500000);
+		}
+	}//FIM POSICIONANDO VERTICALMENTE
+
 	return;
 }
 

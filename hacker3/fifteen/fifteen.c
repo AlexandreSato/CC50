@@ -49,6 +49,8 @@ bool move(int tile); //line250
 bool won(void);
 void god(void);//Hacker Versions | line342
 void begin_god(int tile, int i_destin, int j_destin);
+void begin_first_engage(int d, int i);
+void end_first_engage(int d, int i);
 
 
 int
@@ -100,9 +102,7 @@ main(int argc, char *argv[])
 	{
 		god();
 	}
-	if (atoi(STRING) == 0)
-		;
-	else
+	if (atoi(STRING) != 0)
         {
 		tile = atoi(STRING);
 
@@ -345,16 +345,22 @@ void
 god(void)
 {
 	printf("\n CHAMOU GOD MODE !\n");
-	for(int i = 0, TALE = 1; i < d; i++)
+	for(int i = 0, TALE = 1; i < d - 2; i++)
 	{
-		for(int j = 0; j < d; j++, TALE++)
+		for(int j = 0, count_first_engage = 0; j < d; j++, TALE++)
 		{
-//			if(j == d -1)
-//				begin_first_engage();
-			if(TALE != d * d)
+			if(j == d -1 && board[i][j] != TALE)
+			{
+				begin_first_engage(d , i);
+				count_first_engage = 1;
+			}
+			if(TALE != d * d && board[i][j] != TALE)
 				begin_god(TALE, i, j);
-//			if(j == d -1)
-//				end_first_engage();
+			if(j == d -1 && count_first_engage == 1)
+			{
+				end_first_engage(d, i);
+				count_first_engage = 0;
+			}
 		}
 	}
 	return;
@@ -390,6 +396,15 @@ begin_god(int tile, int i_destin, int j_destin)
 			int INCREMENT = TEMP/abs(TEMP);
 			for(int i = 0; i < abs(TEMP); i++)
 			{
+				if (I_GAP == i_destin && J_TALE < J_GAP)//Para não bagunçar quando o vazio está na primeira linha e a peça a esquerda
+				{
+					board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP];//Swap de Gap com a peça de baixo
+					board[I_GAP +1][J_GAP] = 0;
+					I_GAP = I_GAP +1;
+					clear();
+					draw();
+					usleep(500000);
+				}
 				if (I_GAP == I_TALE)//se o vazio está na mesma linha
 				{
 					if(I_TALE == d -1)//Se a peça está na última linha
@@ -449,6 +464,23 @@ begin_god(int tile, int i_destin, int j_destin)
 
 	if (I_TALE != i_destin) //POSICIONANDO A PEÇA NA LINHA "i_destin"
 	{
+
+		if (I_TALE == i_destin +1 && J_GAP < j_destin && j_destin != d -1)//Para não bagunçar o que já foi arrumado acima e a esquerda
+		{
+			board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP];//Swap de Gap com a peça de baixo
+			board[I_GAP +1][J_GAP] = 0;
+			I_GAP++;
+			clear();
+			draw();
+			usleep(500000);
+			board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1]; //Swap com a peça da direita
+			board[I_GAP][J_GAP +1] = 0;
+			J_GAP++ ;
+			clear();
+			draw();
+			usleep(500000);
+		}
+
 
 		int TEMP = i_destin - I_TALE;
 		if (TEMP != 0)
@@ -515,5 +547,83 @@ begin_god(int tile, int i_destin, int j_destin)
 	return;
 }
 
+/*
+ * Função para puxar o trem de números para a esquerda, proporcionando uma coluna de liberdade j = d -1
+ */
+void
+begin_first_engage(int d, int i)
+{
+	int I_GAP = i +1;
+	int J_GAP = d -2;
+	for (int j = 0; j < d -2; j++)
+	{
+		board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1]; //Swap com a peça da esquerda
+		board[I_GAP][J_GAP -1] = 0;
+		J_GAP-- ;
+		clear();
+		draw();
+		usleep(500000);
+	}
 
+
+	board[I_GAP][J_GAP] = board[I_GAP -1][J_GAP]; //Swap com a peça de cima
+	board[I_GAP -1][J_GAP] = 0;
+	I_GAP-- ;
+	clear();
+	draw();
+	usleep(500000);
+
+
+	for (int j = 0; j < d -2; j++)
+	{
+		board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1]; //Swap com a peça da direita
+		board[I_GAP][J_GAP +1] = 0;
+		J_GAP++ ;
+		clear();
+		draw();
+		usleep(500000);
+	}
+}
+
+/*
+ * Função para puxar o trem de números para a direita, fechando a coluna de liberdade j = d -1
+ */
+void
+end_first_engage(int d, int i)
+{
+	int I_GAP = i +1;
+	int J_GAP = d -1;
+
+	board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1]; //Swap com a peça da esquerda
+	board[I_GAP][J_GAP -1] = 0;
+	J_GAP-- ;
+	clear();
+	draw();
+	usleep(500000);
+
+	board[I_GAP][J_GAP] = board[I_GAP -1][J_GAP]; //Swap com a peça de cima
+	board[I_GAP -1][J_GAP] = 0;
+	I_GAP-- ;
+	clear();
+	draw();
+	usleep(500000);
+
+	for (int j = 0; j < d -2; j++)
+	{
+		board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1]; //Swap com a peça da esquerda
+		board[I_GAP][J_GAP -1] = 0;
+		J_GAP-- ;
+		clear();
+		draw();
+		usleep(500000);
+	}
+
+	board[I_GAP][J_GAP] = board[I_GAP +1][J_GAP];//Swap de Gap com a peça de baixo
+	board[I_GAP +1][J_GAP] = 0;
+	I_GAP++;
+	clear();
+	draw();
+	usleep(500000);
+
+}
 

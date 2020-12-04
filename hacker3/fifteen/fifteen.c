@@ -367,39 +367,35 @@ god(void)
 	/*
 	 *Resolvendo as duas últimas linhas
 	 */
-	begin_god(d * (d -1) +1 /*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 0 /*0 é a coluna da esquerda*/);
-	begin_god(d * (d -2) +1 /*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 1 /*0 é a coluna da esquerda*/);
-	int /*I_GAP,*/ J_GAP;
-	for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
+	for (int count = 0, J_GAP; count < d -2; count++)
 	{
-		for (int j=0; j<d; j++)
+		begin_god(d * (d -2) +1 +count/*Primeiro argumento é "Tale"*/, d -1 /*Segundo argumento é i_destin ou seja a penúltima linha*/, d -1 /*d -1 é a última coluna da direita*/);
+		begin_god(d * (d -1) +1 +count/*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 0 +count/*0 é a coluna da esquerda*/);
+		move(board[d -1][1 +count]);
+		begin_god(d * (d -2) +1 +count/*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 1 +count/*0 é a coluna da esquerda*/);
+		for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
 		{
-			if (board[i][j] == 0)
+			for (int j=0; j<d; j++)
 			{
-//				I_GAP = i;
-				J_GAP = j;
+				if (board[i][j] == 0)
+					J_GAP = j;
 			}
 		}
+		move(board[d -1][J_GAP]);//Posicionando o vazio na linha de baixo
+		move(board[d -1][0 +count]);//Mandando vazio para a primeira coluna da esquerda
+		move(board[d -2][0 +count]);//Subindo uma casa
+		move(board[d -2][1 +count]);//Jogando uma para direita
 	}
-	move(board[d -1][J_GAP]);//Posicionando o vazio na linha de baixo
-	move(board[d -1][0]);//Mandando vazio para a primeira coluna da esquerda
-	move(board[d -2][0]);//Subindo uma casa
-	move(board[d -2][1]);//Jogando uma para direita
 
-	while (true)//Girar enquanto não estiver na configuração correta
+
+	while (true)//Girar o último quadrante para a configuração correta
 	{
-		move(board[d -2][d -1]);//Posicionando o vazio na linha de baixo
+		move(board[d -2][d -1]);
+		move(board[d -1][d -1]);
 		if (won())
 			break;
-		move(board[d -1][d -1]);//Mandando vazio para a primeira coluna da esquerda
-		if (won())
-			break;
-		move(board[d -1][d -2]);//Subindo uma casa
-		if (won())
-			break;
-		move(board[d -2][d -2]);//Jogando uma para direita
-		if (won())
-			break;
+		move(board[d -1][d -2]);
+		move(board[d -2][d -2]);
 	}
 
 	return;

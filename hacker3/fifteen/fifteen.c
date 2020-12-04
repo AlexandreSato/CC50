@@ -345,7 +345,7 @@ void
 god(void)
 {
 	printf("\n CHAMOU GOD MODE !\n");
-	for(int i = 0, TALE = 1; i < d - 2; i++)
+	for(int i = 0, TALE = 1; i < d - 2; i++)//Algoritmo até a antepenúltima linha
 	{
 		for(int j = 0, count_first_engage = 0; j < d; j++, TALE++)
 		{
@@ -363,6 +363,45 @@ god(void)
 			}
 		}
 	}
+
+	/*
+	 *Resolvendo as duas últimas linhas
+	 */
+	begin_god(d * (d -1) +1 /*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 0 /*0 é a coluna da esquerda*/);
+	begin_god(d * (d -2) +1 /*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 1 /*0 é a coluna da esquerda*/);
+	int /*I_GAP,*/ J_GAP;
+	for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
+	{
+		for (int j=0; j<d; j++)
+		{
+			if (board[i][j] == 0)
+			{
+//				I_GAP = i;
+				J_GAP = j;
+			}
+		}
+	}
+	move(board[d -1][J_GAP]);//Posicionando o vazio na linha de baixo
+	move(board[d -1][0]);//Mandando vazio para a primeira coluna da esquerda
+	move(board[d -2][0]);//Subindo uma casa
+	move(board[d -2][1]);//Jogando uma para direita
+
+	while (true)//Girar enquanto não estiver na configuração correta
+	{
+		move(board[d -2][d -1]);//Posicionando o vazio na linha de baixo
+		if (won())
+			break;
+		move(board[d -1][d -1]);//Mandando vazio para a primeira coluna da esquerda
+		if (won())
+			break;
+		move(board[d -1][d -2]);//Subindo uma casa
+		if (won())
+			break;
+		move(board[d -2][d -2]);//Jogando uma para direita
+		if (won())
+			break;
+	}
+
 	return;
 }
 
@@ -553,36 +592,32 @@ begin_god(int tile, int i_destin, int j_destin)
 void
 begin_first_engage(int d, int i)
 {
-	int I_GAP = i +1;
-	int J_GAP = d -2;
-	for (int j = 0; j < d -2; j++)
+	int I_GAP, J_GAP;
+	for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
 	{
-		board[I_GAP][J_GAP] = board[I_GAP][J_GAP -1]; //Swap com a peça da esquerda
-		board[I_GAP][J_GAP -1] = 0;
-		J_GAP-- ;
-		clear();
-		draw();
-		usleep(500000);
+		for (int j=0; j<d; j++)
+		{
+			if (board[i][j] == 0)
+			{
+				I_GAP = i;
+				J_GAP = j;
+			}
+		}
 	}
 
-
-	board[I_GAP][J_GAP] = board[I_GAP -1][J_GAP]; //Swap com a peça de cima
-	board[I_GAP -1][J_GAP] = 0;
-	I_GAP-- ;
-	clear();
-	draw();
-	usleep(500000);
-
-
-	for (int j = 0; j < d -2; j++)
+	if (board[i +2][0] == d * (i +1))//Correção no algoritmo quando o caso da peça d*i estiver imediatamente abaixo e na coluna da esquerda
 	{
-		board[I_GAP][J_GAP] = board[I_GAP][J_GAP +1]; //Swap com a peça da direita
-		board[I_GAP][J_GAP +1] = 0;
-		J_GAP++ ;
-		clear();
-		draw();
-		usleep(500000);
+		move(board[i +2][J_GAP]);//Swap com a peça de baixo
+		move(d * (i +1));//Tirando o caso d*i da coluna da esquerda proporcionando assim liberdade mínima de "j = 1" para o movimento de begin_god()
 	}
+
+	if (I_GAP != i +1)
+		move(board[i +1][J_GAP]);
+
+	move(board[i +1][0]);//Swap com a peça da esquerda
+	move(board[i][0]);//Swap com a peça de cima
+	move(board[i][d -2]);//Swap com a peça da direita
+
 }
 
 /*

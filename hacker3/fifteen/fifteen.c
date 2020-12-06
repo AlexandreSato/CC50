@@ -14,7 +14,7 @@
  * Note that usleep is obsolete, but it offers more granularity than
  * sleep and is simpler to use than nanosleep; `man usleep` for more.
  *
- * Aluno: Alexandre Nobuharu Sato em 18/11/2020 sato_alexandre@hotmail.com
+ * Aluno: Alexandre Nobuharu Sato em 18/11/2020 sato_alexandre@hotmail.com DONE in 6/12/20
  ***************************************************************************/
 
 #define _XOPEN_SOURCE 500
@@ -275,6 +275,8 @@ move(int tile)
 	if (I_TALE_POSITION == I_GAP)//Horizontal
 	{
 		int JDELTA = J_TALE_POSITION - J_GAP;
+		if (JDELTA == 0)
+			return true;
 		int INCREMENT = JDELTA/abs(JDELTA);
 		for (int i = 0; i < abs(JDELTA); i++)
 		{
@@ -293,6 +295,8 @@ move(int tile)
 	if (J_TALE_POSITION == J_GAP)//Vertical
 	{
 		int IDELTA = I_TALE_POSITION - I_GAP;
+		if (IDELTA == 0)
+			return true;
 		int INCREMENT = IDELTA/abs(IDELTA);
 		for (int i = 0; i < abs(IDELTA); i++)
 		{
@@ -373,7 +377,7 @@ god(void)
 		begin_god(d * (d -1) +1 +count/*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 0 +count/*0 é a coluna da esquerda*/);
 		move(board[d -1][1 +count]);
 		begin_god(d * (d -2) +1 +count/*Primeiro argumento é "Tale"*/, d -2 /*Segundo argumento é i_destin ou seja a penúltima linha*/, 1 +count/*0 é a coluna da esquerda*/);
-		for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
+		for (int i=0; i<d; i++)//Searching GAP tale position on the array
 		{
 			for (int j=0; j<d; j++)
 			{
@@ -405,7 +409,7 @@ void
 begin_god(int tile, int i_destin, int j_destin)
 {
 	int I_GAP, J_GAP, I_TALE, J_TALE;
-	for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
+	for (int i=0; i<d; i++)//Searching GAP and tale positions on the array
 	{
 		for (int j=0; j<d; j++)
 		{
@@ -589,7 +593,7 @@ void
 begin_first_engage(int d, int i)
 {
 	int I_GAP, J_GAP;
-	for (int i=0; i<d; i++)//Searching GAP and "1" tale positions on the array
+	for (int i=0; i<d; i++)//Searching GAP tale position on the array
 	{
 		for (int j=0; j<d; j++)
 		{

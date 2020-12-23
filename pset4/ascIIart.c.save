@@ -1,0 +1,12 @@
+/* Programa para exercer criatividade artística no C
+ * Por: Alexandre Nobuharu Sato em 21/12/2020
+ */
+
+#include <stdio.h>
+
+void
+main (void)
+{
+	printf("\n");
+	printf("   _____  .__                                    .___               \n");
+}

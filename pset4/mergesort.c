@@ -72,7 +72,7 @@ mergeSort(int arr[], int l, int r)
 void
 merge(int arr[], int l, int m, int r)
 {
-	int i, j, k;//index of first, second and merged subarray
+	int i =0, j=0, k=0;//index of first, second and merged subarray
 	int n1 = m - l + 1;
 	int n2 = r - m;
 
@@ -82,7 +82,7 @@ merge(int arr[], int l, int m, int r)
 	//fill temp arrays
 	for(i=0; i < n1; i++)
 		L[i] = arr[l + i];
-	for(j=0; i< n2; j++)
+	for(j=0; j < n2; j++)
 		R[j] = arr[m + 1 + j];
 
 	//Merge the temp arrays back into arr[l ... r]
@@ -118,7 +118,7 @@ merge(int arr[], int l, int m, int r)
 void
 printArray(int arr[], int size)
 {
-	for(int i = 0; i < size; i++)
+	for(int i = 0; i <= size -1 ; i++)
 		printf("%d  ", arr[i]);
 	printf("\n");
 }

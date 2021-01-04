@@ -1,4 +1,4 @@
-all: mergesort
+all: ncurses
 
-mergesort: mergesort.c
-	gcc mergesort.c -o mergesort -lcc50
+ncurses: ncurses.c
+	gcc ncurses.c -o ncurses -lcurses

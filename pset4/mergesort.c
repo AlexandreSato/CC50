@@ -61,6 +61,7 @@ mergeSort(int arr[], int l, int r)
 	{       //Same as (l+r)/2 but avoids overflow
 		int m = l + (r - l) / 2;
 
+		printArray(arr, r - l +1);
 		//Sort first and second halves
 		mergeSort(arr, l, m);
 		mergeSort(arr, m + 1, r);
@@ -113,6 +114,9 @@ merge(int arr[], int l, int m, int r)
 		j++;
 		k++;
 	}
+	for(int i = 0; i <= r - l ; i++)
+		printf("%d  ", arr[i + l]);
+	printf("\n");
 }
 
 void

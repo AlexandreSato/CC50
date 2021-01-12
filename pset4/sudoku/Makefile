@@ -10,3 +10,6 @@ sudoku: Makefile sudoku.c sudoku.h
 
 clean:
 	rm -f *.o a.out core log.txt sudoku
+
+ncurses: Makefile ncurses.c
+	gcc ncurses.c -o ncurses -lncurses

@@ -18,15 +18,15 @@
 #define BG_BANNER COLOR_BLACK
 
 // grid's colors
-#define FG_GRID COLOR_WHITE
+#define FG_GRID COLOR_YELLOW  //WHITE
 #define BG_GRID COLOR_BLACK
 
 // border's colors
 #define FG_BORDER COLOR_WHITE
-#define BG_BORDER COLOR_RED
+#define BG_BORDER COLOR_BLUE
 
 // logo's colors
-#define FG_LOGO COLOR_GREEN
+#define FG_LOGO COLOR_RED
 #define BG_LOGO COLOR_BLACK
 
 // nicknames for pairs of colors

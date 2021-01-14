@@ -1,0 +1,16 @@
+Questões para respostas do Pset4 do curso CC50, Aluno: Alexandre Nobuharu Sato
+
+I.Repare que main chama strcmp. O que significa se strcmp, após receber duas strings como argumentos, retornar 0?
+	R: Significa que as duas strings são iguais.
+
+	
+II.Como você reescreveria a linha abaixo, extraída de main, usando if e else?
+	int max = (!strcmp(g.level, "debug")) ? 9 :1024;
+	R:
+
+		    //Alternative
+		     int max;
+		    if (!strcmp(g.level, "debug"))
+		        max = 9;
+		    else
+		        max = 1024;

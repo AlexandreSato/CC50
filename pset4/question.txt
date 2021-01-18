@@ -1,4 +1,4 @@
-Questões para respostas do Pset4 do curso CC50, Aluno: Alexandre Nobuharu Sato
+Questões para respostas do Pset4 do curso CC50, Aluno: Alexandre Nobuharu Sato, Jabaquara-SP 15/01/2021
 
 I.Repare que main chama strcmp. O que significa se strcmp, após receber duas strings como argumentos, retornar 0?
 	R: Significa que as duas strings são iguais.
@@ -14,3 +14,29 @@ II.Como você reescreveria a linha abaixo, extraída de main, usando if e else?
 		        max = 9;
 		    else
 		        max = 1024;
+			
+III.Em que circunstância o uso de sscanf abaixo, extraído de main, retorna 2 em vez de 1?
+        sscanf(argv[2], " %d %c", &g.number, &c)
+        R: O uso de sscanf acima retornará 2 toda vez que argv[2] contiver algum
+           caractere do tipo "char" vindo após um inteiro. O retorno de sscanf é
+           contagem de argumentos atendidos durante a "coleta". No caso do exemplo
+           acima trata-se de uma validação se o número digitado é decimal porque o
+           "." ou "," do número decimal irá ser considerado "char" e fazer o re-
+           torno de sscanf ser 2 ao invéz de 1 (número inteiro).
+
+IV.Que atributos de g representam as coordenadas onde cursor do usário está?
+        R:    int y, x;
+
+V.Qual função (que nós escrevemos) você pode chamar para levar o cursor para essas coordenadas?
+  (Dica: nós lhe dissemos alguns parágrafos atrás)
+        R: show_cursor();
+
+VI.Perto de que linha de main você poderia adicionar elementos case para lidar com outras teclas
+   além de N, R, e ctrl-L?
+        R: Na função switch(ch) da linha 162.
+
+VII.A maioria das placas n00b e l33t têm muitos espaços em branco. Mas quantos espaços em branco
+    tem debug #1? E debug #2? E debug #9?
+        R: debug #1 tem 1 (um) espaço em branco;
+           debug #2 tem 2 (dois) espaços em branco;
+           debug #9 tem 9 (nove) espaços em branco.

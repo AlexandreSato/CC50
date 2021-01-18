@@ -1,0 +1,8 @@
+Aluno: Alexandre Nobuharu Sato, Jabaquara - SP em 18 de janeiro de 2021
+
+Diga um exemplo de programa com erro de design que você viu por aí:
+
+-Um exemplo de erro de design clássico e recorrente que costumo percerber é ao ter que utilizar algum tipo de serviço
+que exija telecomunitação, o prestador de serviço exije que eu instale algum tipo de aplicativo no meu próprio dispositivo
+particular. Além disso na navegação com a internet ou intranet diversas aplicações web não utilizam os "cookies" para 
+sugerir as tarefas mais acessadas (Caso Geral) pelo usuário do sistema.

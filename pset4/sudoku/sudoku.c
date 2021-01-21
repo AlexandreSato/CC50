@@ -191,7 +191,9 @@ main(int argc, char *argv[])
 	   case KEY_UP:
 		g.y == 0? g.y = 8 : --g.y;
 		show_cursor();
-		show_banner("Teste de Banner !");
+        char temp[1]; //variable for converting int > string
+        itoa(g.board[y][x], temp, 10);
+		show_banner(temp);
 		show_cursor();
 		break;
 	   case KEY_DOWN:

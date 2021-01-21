@@ -195,7 +195,7 @@ main(int argc, char *argv[])
 		g.y == 0? g.y = 8 : --g.y;
 		show_cursor();
 	    // char temp[1]; //variable for converting int > string
-        char temp = g.board[g.y][g.x] + '0';
+        char temp = g.board[g.y][g.x] ;
        	// sprintf(temp, "%d", g.init_board[g.y][g.x]);
 		show_banner(&temp);
 		show_cursor();

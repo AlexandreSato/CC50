@@ -194,13 +194,13 @@ main(int argc, char *argv[])
 	   case KEY_UP:
 		g.y == 0? g.y = 8 : --g.y;
 		show_cursor();
-	        char temp[1]; //variable for converting int > string
-       		sprintf(temp, "%d", g.init_board[g.y][g.x]);
-		show_banner(temp);
-		show_cursor();
+	    // char temp[1]; //variable for converting int > string
+       	// sprintf(temp, "%d", g.init_board[g.y][g.x]);
+		// show_banner(temp);
+		// show_cursor();
 		break;
 	   case KEY_DOWN:
-        // g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
+        g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
 		g.y == 8? g.y = 0 : ++g.y;
 		show_cursor();
 		break;

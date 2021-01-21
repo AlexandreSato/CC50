@@ -13,3 +13,7 @@ clean:
 
 ncurses: Makefile ncurses.c
 	gcc ncurses.c -o ncurses -lncurses
+
+upload: Makefile sudoku.c
+	git add . && git commit -m "Testing . . . " && git push
+

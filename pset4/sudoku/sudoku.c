@@ -197,7 +197,7 @@ main(int argc, char *argv[])
 	    // char temp[1]; //variable for converting int > string
         char temp = g.board[g.y][g.x] + '0';
        	// sprintf(temp, "%d", g.init_board[g.y][g.x]);
-		show_banner(temp);
+		show_banner(&temp);
 		show_cursor();
 		break;
 	   case KEY_DOWN:

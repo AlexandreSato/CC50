@@ -191,8 +191,8 @@ main(int argc, char *argv[])
 	   case KEY_UP:
 		g.y == 0? g.y = 8 : --g.y;
 		show_cursor();
-        char temp[1]; //variable for converting int > string
-        itoa(g.board[y][x], temp, 10);
+	        char temp[1]; //variable for converting int > string
+       		sprintf(temp, "%d", g.board[g.y][g.x]);
 		show_banner(temp);
 		show_cursor();
 		break;

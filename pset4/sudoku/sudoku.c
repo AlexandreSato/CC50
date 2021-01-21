@@ -191,9 +191,9 @@ main(int argc, char *argv[])
 	   case KEY_UP:
 		g.y == 0? g.y = 8 : --g.y;
 		show_cursor();
-	        char temp[1]; //variable for converting int > string
-       		sprintf(temp, "%d", g.board[g.y][g.x]);
-		show_banner(temp);
+	    //     char temp[1]; //variable for converting int > string
+       	// 	sprintf(temp, "%d", g.board[g.y][g.x]);
+		// show_banner(temp);
 		show_cursor();
 		break;
 	   case KEY_DOWN:
@@ -209,6 +209,11 @@ main(int argc, char *argv[])
 		g.x == 8? g.x = 0 : ++g.x;
 		show_cursor();
 		break;
+
+        // test Getch numbers
+        case '1':
+            show_banner("1");
+            break;
  
         }
 

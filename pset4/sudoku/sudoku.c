@@ -201,6 +201,7 @@ main(int argc, char *argv[])
 		break;
 	   case KEY_DOWN:
 		g.y == 8? g.y = 0 : ++g.y;
+        hide_banner();
         g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
 		show_cursor();
 		break;

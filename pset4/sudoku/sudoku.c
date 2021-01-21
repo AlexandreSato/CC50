@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+//#include <unistd.h>
 
 
 // macro for processing control characters
@@ -40,7 +41,6 @@ struct
 
     // the board's top-left coordinates
     int top, left;
-
     // the cursor's current location between (0,0) and (8,8)
     int y, x;
 } g;
@@ -186,6 +186,28 @@ main(int argc, char *argv[])
             case CTRL('l'):
                 redraw_all();
                 break;
+
+	   // lets arrow keys work
+	   case KEY_UP:
+		g.y == 0? g.y = 8 : --g.y;
+		show_cursor();
+		show_banner("Teste de Banner !");
+		show_cursor();
+		break;
+	   case KEY_DOWN:
+		g.y == 8? g.y = 0 : ++g.y;
+		show_cursor();
+		break;
+	   case KEY_LEFT:
+		hide_banner();
+		g.x == 0? g.x = 8 : --g.x;
+		show_cursor();
+		break;
+	   case KEY_RIGHT:
+		g.x == 8? g.x = 0 : ++g.x;
+		show_cursor();
+		break;
+ 
         }
 
         // log input (and board's state) if any was received this iteration

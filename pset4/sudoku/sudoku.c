@@ -200,8 +200,8 @@ main(int argc, char *argv[])
 		// show_cursor();
 		break;
 	   case KEY_DOWN:
-        g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
 		g.y == 8? g.y = 0 : ++g.y;
+        g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
 		show_cursor();
 		break;
 	   case KEY_LEFT:

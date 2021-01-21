@@ -36,6 +36,9 @@ struct
     // the game's board
     int board[9][9];
 
+    // initial game board
+    int init_board[9][9];
+
     // the board's number
     int number;
 
@@ -198,6 +201,7 @@ main(int argc, char *argv[])
 		break;
 	   case KEY_DOWN:
 		g.y == 8? g.y = 0 : ++g.y;
+        g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
 		show_cursor();
 		break;
 	   case KEY_LEFT:
@@ -447,7 +451,14 @@ load_board(void)
         fclose(fp);
         return false;
     }
-
+    
+    // save the initial board into memory
+    if (fread(g.init_board, 81 * INTSIZE, 1, fp) != 1)
+    {
+        fclose(fp);
+        return false;
+    }
+    
     // w00t
     fclose(fp);
     return true;

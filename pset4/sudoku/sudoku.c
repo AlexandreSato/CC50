@@ -451,6 +451,9 @@ load_board(void)
         fclose(fp);
         return false;
     }
+
+    // seek again to specified board
+    fseek(fp, offset, SEEK_SET);
     
     // save the initial board into memory
     if (fread(g.init_board, 81 * INTSIZE, 1, fp) != 1)

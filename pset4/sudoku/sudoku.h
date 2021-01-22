@@ -29,5 +29,9 @@
 #define FG_LOGO COLOR_RED
 #define BG_LOGO COLOR_BLACK
 
+// number placed by the player
+#define FG_NUMBER COLOER_YELLOW //203 //trying orange
+#define BG_NUMBER COLOR_BLACK
+
 // nicknames for pairs of colors
-enum { PAIR_BANNER = 1, PAIR_GRID, PAIR_BORDER, PAIR_LOGO };
+enum { PAIR_BANNER = 1, PAIR_GRID, PAIR_BORDER, PAIR_LOGO, PAIR_NUMBER };

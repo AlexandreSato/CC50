@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-//#include <unistd.h>
+//#include <unistd.h>                                       test
 
 
 // macro for processing control characters
@@ -165,7 +165,7 @@ main(int argc, char *argv[])
         switch (ch)
         {
             // start a new game
-            case 'N': 
+            case 'N':
                 g.number = rand() % max + 1;
                 if (!restart_game())
                 {
@@ -176,7 +176,7 @@ main(int argc, char *argv[])
                 break;
 
             // restart current game
-            case 'R': 
+            case 'R':
                 if (!restart_game())
                 {
                     shutdown();
@@ -194,11 +194,10 @@ main(int argc, char *argv[])
 	   case KEY_UP:
 		g.y == 0? g.y = 8 : --g.y;
 		show_cursor();
-	    // char temp[1]; //variable for converting int > string
-        char temp = g.board[g.y][g.x] ;
+	    // char temp[1]; //variable for converting int > string                 test
        	// sprintf(temp, "%d", g.init_board[g.y][g.x]);
-		show_banner(&temp);
-		show_cursor();
+		// show_banner(temp);
+		// show_cursor();
 		break;
 	   case KEY_DOWN:
 		g.y == 8? g.y = 0 : ++g.y;
@@ -218,9 +217,10 @@ main(int argc, char *argv[])
 
         // test Getch numbers
         case '1':
-            show_banner("1");
+            show_banner("1");                                       // test
+            g.board[g.y][g.x] = "1";
             break;
- 
+
         }
 
         // log input (and board's state) if any was received this iteration
@@ -253,7 +253,7 @@ draw_grid(void)
     int maxy, maxx;
     getmaxyx(stdscr, maxy, maxx);
 
-    // determine where top-left corner of board belongs 
+    // determine where top-left corner of board belongs
     g.top = maxy/2 - 7;
     g.left = maxx/2 - 30;
 
@@ -374,10 +374,30 @@ draw_numbers(void)
     {
         for (int j = 0; j < 9; j++)
         {
-            // determine char
-            char c = (g.board[i][j] == 0) ? '.' : g.board[i][j] + '0';
-            mvaddch(g.top + i + 1 + i/3, g.left + 2 + 2*(j + j/3), c);
-            refresh();
+            // putting the number of the player with a different color on the board
+            if (g.init_board[i][j] == 0 && g.init_board[i][j] != 0)
+            {
+                if (has_colors())
+                    attron(COLOR_PAIR(PAIR_NUMBER));
+
+                // determine char
+                char c = (g.board[i][j] == 0) ? '.' : g.board[i][j] + '0';
+                mvaddch(g.top + i + 1 + i/3, g.left + 2 + 2*(j + j/3), c);
+                refresh();
+
+                if (has_colors())
+                    attroff(COLOR_PAIR(PAIR_NUMBER));
+            }
+            else
+            {
+                // determine char
+                char c = (g.board[i][j] == 0) ? '.' : g.board[i][j] + '0';
+                mvaddch(g.top + i + 1 + i/3, g.left + 2 + 2*(j + j/3), c);
+                refresh();
+            }
+            
+
+
         }
     }
 }
@@ -456,14 +476,14 @@ load_board(void)
 
     // seek again to specified board
     fseek(fp, offset, SEEK_SET);
-    
+
     // save the initial board into memory
     if (fread(g.init_board, 81 * INTSIZE, 1, fp) != 1)
     {
         fclose(fp);
         return false;
     }
-    
+
     // w00t
     fclose(fp);
     return true;
@@ -578,7 +598,7 @@ show_banner(char *b)
     if (has_colors())
         attron(COLOR_PAIR(PAIR_BANNER));
 
-    // determine where top-left corner of board belongs 
+    // determine where top-left corner of board belongs
     mvaddstr(g.top + 16, g.left + 64 - strlen(b), b);
 
     // disable color if possible
@@ -623,7 +643,8 @@ startup(void)
         if (init_pair(PAIR_BANNER, FG_BANNER, BG_BANNER) == ERR ||
             init_pair(PAIR_GRID, FG_GRID, BG_GRID) == ERR ||
             init_pair(PAIR_BORDER, FG_BORDER, BG_BORDER) == ERR ||
-            init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR)
+            init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR ||
+            init_pair(PAIR_NUMBER, FG_NUMBER, BG_NUMBER) == ERR )
         {
             endwin();
             return false;

@@ -30,7 +30,7 @@
 #define BG_LOGO COLOR_BLACK
 
 // number placed by the player
-#define FG_NUMBER COLOER_YELLOW //203 //trying orange
+#define FG_NUMBER COLOR_YELLOW //203 //trying orange
 #define BG_NUMBER COLOR_BLACK
 
 // nicknames for pairs of colors

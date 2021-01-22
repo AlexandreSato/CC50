@@ -218,7 +218,7 @@ main(int argc, char *argv[])
         // test Getch numbers
         case '1':
             show_banner("1");                                       // test
-            g.board[g.y][g.x] = "1";
+            g.board[g.y][g.x] = 1;
             break;
 
         }

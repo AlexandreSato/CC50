@@ -380,16 +380,16 @@ draw_numbers(void)
             // putting the number of the player with a different color on the board
             if (g.init_board[i][j] == 0 && g.board[i][j] != 0)
             {
-                if (has_colors())
-                    attron(COLOR_PAIR(PAIR_PLAYNUMBER));
+//                if (has_colors())
+//                    attron(COLOR_PAIR(PAIR_PLAYNUMBER));
 
                 // determine char
                 char c = (g.board[i][j] == 0) ? '.' : g.board[i][j] + '0';
                 mvaddch(g.top + i + 1 + i/3, g.left + 2 + 2*(j + j/3), c);
                 refresh();
 
-                if (has_colors())
-                    attroff(COLOR_PAIR(PAIR_PLAYNUMBER));
+//                if (has_colors())
+//                    attroff(COLOR_PAIR(PAIR_PLAYNUMBER));
             }
             else
             {
@@ -646,8 +646,8 @@ startup(void)
         if (init_pair(PAIR_BANNER, FG_BANNER, BG_BANNER) == ERR ||
             init_pair(PAIR_GRID, FG_GRID, BG_GRID) == ERR ||
             init_pair(PAIR_BORDER, FG_BORDER, BG_BORDER) == ERR ||
-            init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR ||
-            init_pair(PAIR_PLAYNUMBER, FG_PLAYNUMBER, BG_PLAYNUMBER) == ERR )
+            init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR )
+//            init_pair(PAIR_PLAYNUMBER, FG_PLAYNUMBER, BG_PLAYNUMBER) == ERR )
         {
             endwin();
             return false;

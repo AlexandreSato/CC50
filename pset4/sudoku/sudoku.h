@@ -11,7 +11,7 @@
 #define AUTHOR "Alexandre Nobuharu Sato"
 
 // game's title
-#define TITLE "5ud0ku"
+#define TITLE "S U D O K U"
 
 // banner's colors
 #define FG_BANNER COLOR_CYAN
@@ -23,15 +23,25 @@
 
 // border's colors
 #define FG_BORDER COLOR_WHITE
-#define BG_BORDER COLOR_BLUE
+#define BG_BORDER COLOR_RED
 
 // logo's colors
-#define FG_LOGO COLOR_RED
+#define FG_LOGO COLOR_CYAN
 #define BG_LOGO COLOR_BLACK
 
 // number placed by the player
-#define FG_NUMBER COLOR_YELLOW //203 //trying orange
-#define BG_NUMBER COLOR_BLACK
+#define FG_PLAYNUMBER COLOR_GREEN //203 orange work only graphical interface activated
+#define BG_PLAYNUMBER COLOR_BLACK
 
 // nicknames for pairs of colors
-enum { PAIR_BANNER = 1, PAIR_GRID, PAIR_BORDER, PAIR_LOGO, PAIR_NUMBER };
+enum { PAIR_BANNER = 1, PAIR_GRID, PAIR_BORDER, PAIR_LOGO, PAIR_PLAYNUMBER };
+
+//Console suppor only eight basic colors:
+//1- COLOR_BLACK
+//2- COLOR_RED
+//3- COLOR_GREEN
+//4- COLOR_YELLOW
+//5- COLOR_BLUE
+//6- COLOR_MAGENTA
+//7- COLOR_CYAN
+//8- COLOR_WHITE

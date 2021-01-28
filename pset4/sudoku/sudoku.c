@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-//#include <unistd.h>                                       test
+//#include <unistd.h>					test usleep don't work :/
 
 
 // macro for processing control characters
@@ -64,6 +64,7 @@ void show_banner(char *b);
 void show_cursor(void);
 void shutdown(void);
 bool startup(void);
+int  test(int entered_number);
 
 
 /*
@@ -186,23 +187,19 @@ main(int argc, char *argv[])
                 break;
 
             // let user manually redraw screen with ctrl-L
-            case CTRL('l'):
+            case CTRL('k'):
                 redraw_all();
                 break;
 
 	   // lets arrow keys work
 	   case KEY_UP:
 		g.y == 0? g.y = 8 : --g.y;
+        	hide_banner();
 		show_cursor();
-	    // char temp[1]; //variable for converting int > string                 test
-       	// sprintf(temp, "%d", g.init_board[g.y][g.x]);
-		// show_banner(temp);
-		// show_cursor();
 		break;
 	   case KEY_DOWN:
 		g.y == 8? g.y = 0 : ++g.y;
-        hide_banner();
-        g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
+        	hide_banner();
 		show_cursor();
 		break;
 	   case KEY_LEFT:
@@ -212,19 +209,27 @@ main(int argc, char *argv[])
 		break;
 	   case KEY_RIGHT:
 		g.x == 8? g.x = 0 : ++g.x;
+        	hide_banner();
 		show_cursor();
 		break;
-
-        // test Getch numbers
-        case '1':
-	    hide_banner();
-            show_banner("1");                                       // test
-            if (g.init_board[g.y][g.x] == 0)
-		g.board[g.y][g.x] = 1;
-	    show_cursor();
-            break;
-
         }
+
+	//Enter Numbers on board
+	if (isdigit(ch) && g.init_board[g.y][g.x] == 0 && !test(ch - 48)) //If ch is digit
+	{
+		hide_banner();
+		if (g.init_board[g.y][g.x] == 0)
+			g.board[g.y][g.x] = ch - 48;
+		if (has_colors())
+			attron(COLOR_PAIR(PAIR_PLAYNUMBER));
+		char temp[1];
+		sprintf(temp, "%d", ch - 48);
+		mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
+		refresh();
+		if (has_colors())
+			attroff(COLOR_PAIR(PAIR_PLAYNUMBER));
+		show_cursor();
+	}
 
         // log input (and board's state) if any was received this iteration
         if (ch != ERR)
@@ -314,7 +319,7 @@ draw_borders(void)
 
     // draw header
     char header[maxx+1];
-    sprintf(header, "%s by %s", TITLE, AUTHOR);
+    sprintf(header, "%s     by: %s", TITLE, AUTHOR);
     mvaddstr(0, (maxx - strlen(header)) / 2, header);
 
     // draw footer
@@ -398,7 +403,7 @@ draw_numbers(void)
                 mvaddch(g.top + i + 1 + i/3, g.left + 2 + 2*(j + j/3), c);
                 refresh();
             }
-            
+
 
 
         }
@@ -647,7 +652,8 @@ startup(void)
             init_pair(PAIR_GRID, FG_GRID, BG_GRID) == ERR ||
             init_pair(PAIR_BORDER, FG_BORDER, BG_BORDER) == ERR ||
             init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR ||
-            init_pair(PAIR_PLAYNUMBER, FG_PLAYNUMBER, BG_PLAYNUMBER) == ERR )
+            init_pair(PAIR_PLAYNUMBER, FG_PLAYNUMBER, BG_PLAYNUMBER) == ERR ||
+	    init_pair(PAIR_REPEATEDNUMBER, FG_REPEATEDNUMBER, BG_REPEATEDNUMBER) == ERR)
         {
             endwin();
             return false;
@@ -680,4 +686,41 @@ startup(void)
 
     // w00t
     return true;
+}
+
+
+/*
+ * Testing if the number is valid 
+ */
+int
+test(int entered_number)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		if (i != g.y)
+		{
+			if (g.board[i][g.x] == entered_number)
+			{
+				hide_banner();
+				show_banner("Repeated Number!");
+				show_cursor();
+				if (has_colors())
+					attron(COLOR_PAIR(PAIR_REPEATEDNUMBER));
+				char temp[0];
+				sprintf(temp, "%d", entered_number);
+				mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
+				refresh();;
+				mvaddstr(g.top + i + 1 + i/3, g.left + 2 + 2*(g.x + g.x/3), temp);
+				refresh();
+				show_cursor();
+				if (has_colors())
+					attroff(COLOR_PAIR(PAIR_REPEATEDNUMBER));
+//				sleep(2); //1s
+//				getch();
+//				hide_banner();
+				return 1;
+			}
+		}
+	}
+	return 0;
 }

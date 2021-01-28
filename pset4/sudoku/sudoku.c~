@@ -17,7 +17,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-//#include <unistd.h>                                       test
 
 
 // macro for processing control characters
@@ -186,7 +185,7 @@ main(int argc, char *argv[])
                 break;
 
             // let user manually redraw screen with ctrl-L
-            case CTRL('l'):
+            case CTRL('k'):
                 redraw_all();
                 break;
 
@@ -194,15 +193,15 @@ main(int argc, char *argv[])
 	   case KEY_UP:
 		g.y == 0? g.y = 8 : --g.y;
 		show_cursor();
-	    // char temp[1]; //variable for converting int > string                 test
-       	// sprintf(temp, "%d", g.init_board[g.y][g.x]);
+	    	// char temp[1]; //variable for converting int > string                 test
+       		// sprintf(temp, "%d", g.init_board[g.y][g.x]);
 		// show_banner(temp);
 		// show_cursor();
 		break;
 	   case KEY_DOWN:
 		g.y == 8? g.y = 0 : ++g.y;
-        hide_banner();
-        g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
+        	hide_banner();
+        	g.init_board[g.y][g.x] == 0? show_banner("possible") : show_banner("impossible");//Testing if possible put number on board
 		show_cursor();
 		break;
 	   case KEY_LEFT:
@@ -214,17 +213,21 @@ main(int argc, char *argv[])
 		g.x == 8? g.x = 0 : ++g.x;
 		show_cursor();
 		break;
-
-        // test Getch numbers
-        case '1':
-	    hide_banner();
-            show_banner("1");                                       // test
-            if (g.init_board[g.y][g.x] == 0)
-		g.board[g.y][g.x] = 1;
-	    show_cursor();
-            break;
-
         }
+
+	//Enter Numbers on board
+	if (isdigit(ch)) //If ch is digit
+	{
+		hide_banner();
+		char entered_number[2];
+		sprintf (entered_number, "%d", ch - 48);//48 is a offset in ASCII for ch
+		show_banner (entered_number);
+		if (g.init_board[g.y][g.x] == 0)
+			g.board[g.y][g.x] = ch -48;
+		addch(entered_number);
+		refresh();
+		show_cursor();
+	}
 
         // log input (and board's state) if any was received this iteration
         if (ch != ERR)
@@ -380,16 +383,16 @@ draw_numbers(void)
             // putting the number of the player with a different color on the board
             if (g.init_board[i][j] == 0 && g.board[i][j] != 0)
             {
-//                if (has_colors())
-//                    attron(COLOR_PAIR(PAIR_PLAYNUMBER));
+                if (has_colors())
+                    attron(COLOR_PAIR(PAIR_PLAYNUMBER));
 
                 // determine char
                 char c = (g.board[i][j] == 0) ? '.' : g.board[i][j] + '0';
                 mvaddch(g.top + i + 1 + i/3, g.left + 2 + 2*(j + j/3), c);
                 refresh();
 
-//                if (has_colors())
-//                    attroff(COLOR_PAIR(PAIR_PLAYNUMBER));
+                if (has_colors())
+                    attroff(COLOR_PAIR(PAIR_PLAYNUMBER));
             }
             else
             {
@@ -398,7 +401,7 @@ draw_numbers(void)
                 mvaddch(g.top + i + 1 + i/3, g.left + 2 + 2*(j + j/3), c);
                 refresh();
             }
-            
+
 
 
         }
@@ -646,8 +649,8 @@ startup(void)
         if (init_pair(PAIR_BANNER, FG_BANNER, BG_BANNER) == ERR ||
             init_pair(PAIR_GRID, FG_GRID, BG_GRID) == ERR ||
             init_pair(PAIR_BORDER, FG_BORDER, BG_BORDER) == ERR ||
-            init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR )
-//            init_pair(PAIR_PLAYNUMBER, FG_PLAYNUMBER, BG_PLAYNUMBER) == ERR )
+            init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR ||
+            init_pair(PAIR_PLAYNUMBER, FG_PLAYNUMBER, BG_PLAYNUMBER) == ERR )
         {
             endwin();
             return false;

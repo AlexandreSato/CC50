@@ -33,8 +33,12 @@
 #define FG_PLAYNUMBER COLOR_GREEN //203 orange work only graphical interface activated
 #define BG_PLAYNUMBER COLOR_BLACK
 
+// repeated numbers
+#define FG_REPEATEDNUMBER COLOR_RED
+#define BG_REPEATEDNUMBER COLOR_BLACK
+
 // nicknames for pairs of colors
-enum { PAIR_BANNER = 1, PAIR_GRID, PAIR_BORDER, PAIR_LOGO, PAIR_PLAYNUMBER };
+enum { PAIR_BANNER = 1, PAIR_GRID, PAIR_BORDER, PAIR_LOGO, PAIR_PLAYNUMBER, PAIR_REPEATEDNUMBER };
 
 //Console suppor only eight basic colors:
 //1- COLOR_BLACK

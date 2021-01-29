@@ -193,30 +193,47 @@ main(int argc, char *argv[])
 
 	   // lets arrow keys work
 	   case KEY_UP:
+		draw_numbers();
 		g.y == 0? g.y = 8 : --g.y;
         	hide_banner();
+		int temp1 = g.y / 3;
+		char temp[20];
+		sprintf (temp, "Quadrant: %d", temp1);
+		show_banner(temp);
 		show_cursor();
 		break;
 	   case KEY_DOWN:
+		draw_numbers();
 		g.y == 8? g.y = 0 : ++g.y;
         	hide_banner();
 		show_cursor();
 		break;
 	   case KEY_LEFT:
+		draw_numbers();
 		hide_banner();
 		g.x == 0? g.x = 8 : --g.x;
 		show_cursor();
 		break;
 	   case KEY_RIGHT:
+		draw_numbers();
 		g.x == 8? g.x = 0 : ++g.x;
         	hide_banner();
+		show_cursor();
+		break;
+	  case KEY_BACKSPACE:
+	  case KEY_DC:
+		if (g.init_board[g.y][g.x] == 0)
+			g.board[g.y][g.x] = 0;
+		draw_numbers();
+		hide_banner();
 		show_cursor();
 		break;
         }
 
 	//Enter Numbers on board
-	if (isdigit(ch) && g.init_board[g.y][g.x] == 0 && !test(ch - 48)) //If ch is digit
+	if (isdigit(ch) && ch !=48 && g.init_board[g.y][g.x] == 0 && !test(ch - 48)) //If ch is digit
 	{
+		draw_numbers();
 		hide_banner();
 		if (g.init_board[g.y][g.x] == 0)
 			g.board[g.y][g.x] = ch - 48;
@@ -695,6 +712,9 @@ startup(void)
 int
 test(int entered_number)
 {
+	draw_numbers();
+	int count_repetition = 0;
+	//Testing in columns
 	for (int i = 0; i < 9; i++)
 	{
 		if (i != g.y)
@@ -709,18 +729,70 @@ test(int entered_number)
 				char temp[0];
 				sprintf(temp, "%d", entered_number);
 				mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
-				refresh();;
+				refresh();
 				mvaddstr(g.top + i + 1 + i/3, g.left + 2 + 2*(g.x + g.x/3), temp);
 				refresh();
 				show_cursor();
 				if (has_colors())
 					attroff(COLOR_PAIR(PAIR_REPEATEDNUMBER));
-//				sleep(2); //1s
-//				getch();
-//				hide_banner();
-				return 1;
+				count_repetition++;
 			}
 		}
 	}
-	return 0;
+	//Testing in rows
+	for (int i = 0; i < 9; i++)
+	{
+		if (i != g.x)
+		{
+			if (g.board[g.y][i] == entered_number)
+			{
+				hide_banner();
+				show_banner("Repeated Number!");
+				show_cursor();
+				if (has_colors())
+					attron(COLOR_PAIR(PAIR_REPEATEDNUMBER));
+				char temp[0];
+				sprintf(temp, "%d", entered_number);
+				mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
+				refresh();
+				mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(i + i/3), temp);
+				refresh();
+				show_cursor();
+				if (has_colors())
+					attroff(COLOR_PAIR(PAIR_REPEATEDNUMBER));
+				count_repetition++;
+			}
+		}
+	}
+	//Testing in quadrant
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i != g.y % 3 && j != g.x % 3)//skipping the entered_number
+			{
+				int offset_y = g.y / 3 * 3;
+				int offset_x = g.x / 3 * 3;
+				if (g.board[offset_y + i][offset_x + j] == entered_number)
+				{
+					hide_banner();
+					show_banner("Repeated Number!");
+					show_cursor();
+					if (has_colors())
+						attron(COLOR_PAIR(PAIR_REPEATEDNUMBER));
+					char temp[0];
+					sprintf(temp, "%d", entered_number);
+					mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
+					refresh();
+					mvaddstr(g.top + (offset_y + i) + 1 + (offset_y + i)/3, g.left + 2 + 2*((offset_x + j) + (offset_x + j)/3), temp);
+					refresh();
+					show_cursor();
+					if (has_colors())
+						attroff(COLOR_PAIR(PAIR_REPEATEDNUMBER));
+					count_repetition++;
+				}
+			}
+		}
+	}
+	return count_repetition;
 }

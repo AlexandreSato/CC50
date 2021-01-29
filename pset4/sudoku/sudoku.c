@@ -65,6 +65,7 @@ void show_cursor(void);
 void shutdown(void);
 bool startup(void);
 int  test(int entered_number);
+bool won(void);
 
 
 /*
@@ -196,10 +197,10 @@ main(int argc, char *argv[])
 		draw_numbers();
 		g.y == 0? g.y = 8 : --g.y;
         	hide_banner();
-		int temp1 = g.y / 3;
-		char temp[20];
-		sprintf (temp, "Quadrant: %d", temp1);
-		show_banner(temp);
+//		int temp1 = g.y / 3;
+//		char temp[20];
+//		sprintf (temp, "Quadrant: %d", temp1);
+//		show_banner(temp);
 		show_cursor();
 		break;
 	   case KEY_DOWN:
@@ -231,7 +232,7 @@ main(int argc, char *argv[])
         }
 
 	//Enter Numbers on board
-	if (isdigit(ch) && ch !=48 && g.init_board[g.y][g.x] == 0 && !test(ch - 48)) //If ch is digit
+	if (isdigit(ch) && ch !=48 && g.init_board[g.y][g.x] == 0 && !test(ch - 48)) //If ch is digit, not zero, not comming on init board and possible
 	{
 		draw_numbers();
 		hide_banner();
@@ -251,6 +252,20 @@ main(int argc, char *argv[])
         // log input (and board's state) if any was received this iteration
         if (ch != ERR)
             log_move(ch);
+
+        if (won())
+        {
+		hide_banner();
+		show_banner("Congrats ftw!");
+		do
+		{
+			refresh();
+			ch = getch();
+			ch = toupper(ch);
+		}
+		while (ch != 'Q' && ch != 'N' && ch != 'R');
+	}
+
     }
     while (ch != 'Q');
 
@@ -795,4 +810,24 @@ test(int entered_number)
 		}
 	}
 	return count_repetition;
+}
+
+
+/*
+ * If game is won
+ */
+bool
+won(void)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			if(g.board[i][j] == 0)//If there is any empty
+			{
+				return false;
+			}
+		}
+	}
+	return true;
 }

@@ -152,7 +152,7 @@ main(int argc, char *argv[])
 
     // let the user play!
     int ch;
-    do
+    if_is_first_or_won: do
     {
         // refresh the screen
         refresh();
@@ -262,15 +262,45 @@ main(int argc, char *argv[])
 			refresh();
 			ch = getch();
 			ch = toupper(ch);
+			switch (ch)
+			{
+		            // start a new game
+		            case 'N':
+		                g.number = rand() % max + 1;
+		                if (!restart_game())
+		                {
+		                    shutdown();
+		                    fprintf(stderr, "Could not load board from disk!\n");
+		                    return 6;
+		                }
+				hide_banner();
+				show_cursor();
+				goto if_is_first_or_won;
+		                break;
+
+		            // restart current game
+		            case 'R':
+		                if (!restart_game())
+		                {
+		                    shutdown();
+		                    fprintf(stderr, "Could not load board from disk!\n");
+		                    return 6;
+		                }
+				hide_banner();
+				show_cursor();
+				goto if_is_first_or_won;
+		                break;
+			}
 		}
-		while (ch != 'Q' && ch != 'N' && ch != 'R');
+		while (ch != 'Q');
+		goto end;
 	}
 
     }
     while (ch != 'Q');
 
     // shut down ncurses
-    shutdown();
+    end: shutdown();
 
     // tidy up the screen (using ANSI escape sequences)
     printf("\033[2J");

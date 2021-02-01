@@ -5,6 +5,7 @@
  * Pset 4
  *
  * Implements the game of Sudoku.
+ * Aluno: Alexandre Nobuharu Sato, em Jaqbaquara-SP 01/02/2021
  ***************************************************************************/
 
 #include "sudoku.h"
@@ -17,7 +18,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-//#include <unistd.h>					test usleep don't work :/
 
 
 // macro for processing control characters
@@ -46,6 +46,8 @@ struct
     int top, left;
     // the cursor's current location between (0,0) and (8,8)
     int y, x;
+    // if is need redraw numbers
+    bool redraw_numbers;
 } g;
 
 
@@ -194,29 +196,41 @@ main(int argc, char *argv[])
 
 	   // lets arrow keys work
 	   case KEY_UP:
-		draw_numbers();
+		if (g.redraw_numbers == true)
+		{
+			 draw_numbers();
+			 g.redraw_numbers = false;
+		}
 		g.y == 0? g.y = 8 : --g.y;
         	hide_banner();
-//		int temp1 = g.y / 3;
-//		char temp[20];
-//		sprintf (temp, "Quadrant: %d", temp1);
-//		show_banner(temp);
 		show_cursor();
 		break;
 	   case KEY_DOWN:
-		draw_numbers();
+		if (g.redraw_numbers == true)
+		{
+			 draw_numbers();
+			 g.redraw_numbers = false;
+		}
 		g.y == 8? g.y = 0 : ++g.y;
         	hide_banner();
 		show_cursor();
 		break;
 	   case KEY_LEFT:
-		draw_numbers();
+		if (g.redraw_numbers == true)
+		{
+			 draw_numbers();
+			 g.redraw_numbers = false;
+		}
 		hide_banner();
 		g.x == 0? g.x = 8 : --g.x;
 		show_cursor();
 		break;
 	   case KEY_RIGHT:
-		draw_numbers();
+		if (g.redraw_numbers == true)
+		{
+			 draw_numbers();
+			 g.redraw_numbers = false;
+		}
 		g.x == 8? g.x = 0 : ++g.x;
         	hide_banner();
 		show_cursor();
@@ -224,8 +238,11 @@ main(int argc, char *argv[])
 	  case KEY_BACKSPACE:
 	  case KEY_DC:
 		if (g.init_board[g.y][g.x] == 0)
+		{
 			g.board[g.y][g.x] = 0;
-		draw_numbers();
+                	mvaddch(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), '.' );
+                	refresh();
+		}
 		hide_banner();
 		show_cursor();
 		break;
@@ -247,54 +264,54 @@ main(int argc, char *argv[])
 		if (has_colors())
 			attroff(COLOR_PAIR(PAIR_PLAYNUMBER));
 		show_cursor();
+	        if (won())
+	        {
+			hide_banner();
+			show_banner("Congrats ftw!");
+			do
+			{
+				refresh();
+				ch = getch();
+				ch = toupper(ch);
+				switch (ch)
+				{
+			            // start a new game
+			            case 'N':
+			                g.number = rand() % max + 1;
+			                if (!restart_game())
+			                {
+			                    shutdown();
+			                    fprintf(stderr, "Could not load board from disk!\n");
+			                    return 6;
+			                }
+					hide_banner();
+					show_cursor();
+					goto if_is_first_or_won;
+			                break;
+
+			            // restart current game
+			            case 'R':
+			                if (!restart_game())
+			                {
+			                    shutdown();
+			                    fprintf(stderr, "Could not load board from disk!\n");
+			                    return 6;
+			                }
+					hide_banner();
+					show_cursor();
+					goto if_is_first_or_won;
+			                break;
+				}
+			}
+			while (ch != 'Q');
+			goto end;
+		}
 	}
 
         // log input (and board's state) if any was received this iteration
         if (ch != ERR)
             log_move(ch);
 
-        if (won())
-        {
-		hide_banner();
-		show_banner("Congrats ftw!");
-		do
-		{
-			refresh();
-			ch = getch();
-			ch = toupper(ch);
-			switch (ch)
-			{
-		            // start a new game
-		            case 'N':
-		                g.number = rand() % max + 1;
-		                if (!restart_game())
-		                {
-		                    shutdown();
-		                    fprintf(stderr, "Could not load board from disk!\n");
-		                    return 6;
-		                }
-				hide_banner();
-				show_cursor();
-				goto if_is_first_or_won;
-		                break;
-
-		            // restart current game
-		            case 'R':
-		                if (!restart_game())
-		                {
-		                    shutdown();
-		                    fprintf(stderr, "Could not load board from disk!\n");
-		                    return 6;
-		                }
-				hide_banner();
-				show_cursor();
-				goto if_is_first_or_won;
-		                break;
-			}
-		}
-		while (ch != 'Q');
-		goto end;
-	}
 
     }
     while (ch != 'Q');
@@ -814,7 +831,7 @@ test(int entered_number)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if (i != g.y % 3 && j != g.x % 3)//skipping the entered_number
+			if (i != g.y % 3 && j != g.x % 3)//skipping the entered_number row and column
 			{
 				int offset_y = g.y / 3 * 3;
 				int offset_x = g.x / 3 * 3;
@@ -839,6 +856,8 @@ test(int entered_number)
 			}
 		}
 	}
+	if (count_repetition > 0)
+		 g.redraw_numbers = true;
 	return count_repetition;
 }
 
@@ -849,15 +868,70 @@ test(int entered_number)
 bool
 won(void)
 {
+	//testing if there is any empty
 	for (int i = 0; i < 9; i++)
 	{
 		for (int j = 0; j < 9; j++)
 		{
-			if(g.board[i][j] == 0)//If there is any empty
-			{
+			if(g.board[i][j] == 0)
 				return false;
+		}
+	}
+	//testing if there any repetition in column
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			for (int k = 0; k < 9 ; k++)
+			{
+				if (k != j)
+				{
+					if (g.board[j][i] == g.board[k][i])
+						return false;
+				}
 			}
 		}
 	}
+	//testing if there any repetition in row
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			for (int k = 0; k < 9 ; k++)
+			{
+				if (k != j)
+				{
+					if (g.board[i][j] == g.board[i][k])
+						return false;
+				}
+			}
+		}
+	}
+
+	//Testing if there any repetition in quadrant
+	for (int k = 0; k < 9; k++)//9 is all board
+	{
+		for (int l = 0; l < 9; l++)//9 is all board
+		{
+			for (int i = 0; i < 3; i++)//3 is just quadrant
+			{
+				for (int j = 0; j < 3; j++)//3 is just quadrant
+				{
+					if (i != k % 3 && j != l % 3)//skipping the same row and column
+					{
+						int offset_y = k / 3 * 3;
+						int offset_x = l / 3 * 3;
+						if (g.board[offset_y + i][offset_x + j] == g.board[k][l])
+						{
+							return false;
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+
 	return true;
 }

@@ -39,6 +39,9 @@ struct
     // initial game board
     int init_board[9][9];
 
+    // solved board for (H)int "Hacker Version"
+    int solved_board[9][9];
+
     // the board's number
     int number;
 
@@ -68,6 +71,9 @@ void shutdown(void);
 bool startup(void);
 int  test(int entered_number);
 bool won(void);
+void solve_board(void);//Hacker Version
+bool test_for_solve(int itered_number, int y, int x)//Hacker Version
+bool solved(void);//Hacker Version
 
 
 /*
@@ -190,7 +196,7 @@ main(int argc, char *argv[])
                 break;
 
             // let user manually redraw screen with ctrl-L
-            case CTRL('k'):
+            case CTRL('L'):
                 redraw_all();
                 break;
 
@@ -246,6 +252,15 @@ main(int argc, char *argv[])
 		hide_banner();
 		show_cursor();
 		break;
+        case 'H'://Hacker Edition
+            if(has_colors())
+                attron(COLOR_PAIR(PAIR_HINT));
+            char temp[1];
+            sprintf(temp, "%d", g.solved_board[y][x]);
+            mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
+            refresh();
+            if(has_colors())
+                attroff(COLOR_PAIR(PAIR_HINT));
         }
 
 	//Enter Numbers on board
@@ -402,7 +417,7 @@ draw_borders(void)
     mvaddstr(0, (maxx - strlen(header)) / 2, header);
 
     // draw footer
-    mvaddstr(maxy-1, 1, "[N]ew Game   [R]estart Game");
+    mvaddstr(maxy-1, 1, "[N]ew Game   [R]estart Game   [H]int");
     mvaddstr(maxy-1, maxx-13, "[Q]uit Game");
 
     // disable color if possible (else b&w highlighting)
@@ -571,6 +586,14 @@ load_board(void)
         return false;
     }
 
+    // load another board for solve, because we love the hacker edition
+    // fseek(fp, offset, SEEK_SET);
+    //     if (fread(g.solved_board, 81 * INTSIZE, 1, fp) != 1)
+    // {
+    //     fclose(fp);
+    //     return false;
+    // }
+
     // w00t
     fclose(fp);
     return true;
@@ -640,6 +663,9 @@ restart_game(void)
     // reload current game
     if (!load_board())
         return false;
+
+    // solve board for use (H)int button (Hacker Edition)
+    solve_board();
 
     // redraw board
     draw_grid();
@@ -732,7 +758,8 @@ startup(void)
             init_pair(PAIR_BORDER, FG_BORDER, BG_BORDER) == ERR ||
             init_pair(PAIR_LOGO, FG_LOGO, BG_LOGO) == ERR ||
             init_pair(PAIR_PLAYNUMBER, FG_PLAYNUMBER, BG_PLAYNUMBER) == ERR ||
-	    init_pair(PAIR_REPEATEDNUMBER, FG_REPEATEDNUMBER, BG_REPEATEDNUMBER) == ERR)
+	    init_pair(PAIR_REPEATEDNUMBER, FG_REPEATEDNUMBER, BG_REPEATEDNUMBER) == ERR ||
+            init_pair(PAIR_HINT, FG_HINT, BG_HINT) == ERR)
         {
             endwin();
             return false;
@@ -771,6 +798,7 @@ startup(void)
 /*
  * Testing if the number is valid 
  */
+
 int
 test(int entered_number)
 {
@@ -865,6 +893,7 @@ test(int entered_number)
 /*
  * If game is won
  */
+
 bool
 won(void)
 {
@@ -932,6 +961,173 @@ won(void)
 		}
 	}
 
+
+	return true;
+}
+
+
+/*
+ * Hint using the solved board (Hacker Edition)
+ */
+
+void
+solve_board(void)
+{
+    g.solved_board = g.board;
+    while (!solved())
+    {
+        for ( int i = 0; i < 9; i++)
+        {
+            for ( int j = 0; j < 9; j++)
+            {
+                if (g.solved_board[i][j] == 0)
+                {
+                    int count_repetitions = 0, tested_number;
+                    for (int k = 1; k < 10; k++)
+                    {
+                        if (test_for_solve(k, i, j))
+                        {
+                            count_repetitions++;
+                            tested_number = k;
+                        }
+                    }
+                    if (count_repetitions == 1)
+                    {
+                        g.solved_board[i][j] = tested_number;
+                    }   
+                }
+                             
+            }
+            
+        }
+            
+    }
+    
+}
+
+
+/*
+ * Testing if the number itered for "solve_board()" is possible
+ */
+
+bool
+test_for_solve(int itered_number, int y, int x)
+{
+	int count_repetition = 0;
+	//Testing in columns
+	for (int i = 0; i < 9; i++)
+	{
+		if (i != y)
+		{
+			if (g.solved_board[i][x] == itered_number)
+			{
+				count_repetition++;
+			}
+		}
+	}
+	//Testing in rows
+	for (int i = 0; i < 9; i++)
+	{
+		if (i != x)
+		{
+			if (g.solved_board[y][i] == itered_number)
+			{
+				count_repetition++;
+			}
+		}
+	}
+	//Testing in quadrant
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i != y % 3 && j != x % 3)//skipping the entered_number row and column
+			{
+				int offset_y = y / 3 * 3;
+				int offset_x = x / 3 * 3;
+				if (g.solved_board[offset_y + i][offset_x + j] == itered_number)
+				{
+					count_repetition++;
+				}
+			}
+		}
+	}
+	if (count_repetition > 0)
+		 return = false;
+	return true;
+}
+
+
+/*
+ * Testing if the solved_board is really solved
+ */
+
+bool
+solved(void)
+{
+	//testing if there is any empty
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			if(g.solved_board[i][j] == 0)
+				return false;
+		}
+	}
+	//testing if there any repetition in column
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			for (int k = 0; k < 9 ; k++)
+			{
+				if (k != j)
+				{
+					if (g.solved_board[j][i] == g.solved_board[k][i])
+						return false;
+				}
+			}
+		}
+	}
+	//testing if there any repetition in row
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			for (int k = 0; k < 9 ; k++)
+			{
+				if (k != j)
+				{
+					if (g.solved_board[i][j] == g.solved_board[i][k])
+						return false;
+				}
+			}
+		}
+	}
+
+	//Testing if there any repetition in quadrant
+	for (int k = 0; k < 9; k++)//9 is all board
+	{
+		for (int l = 0; l < 9; l++)//9 is all board
+		{
+			for (int i = 0; i < 3; i++)//3 is just quadrant
+			{
+				for (int j = 0; j < 3; j++)//3 is just quadrant
+				{
+					if (i != k % 3 && j != l % 3)//skipping the same row and column
+					{
+						int offset_y = k / 3 * 3;
+						int offset_x = l / 3 * 3;
+						if (g.solved_board[offset_y + i][offset_x + j] == g.solved_board[k][l])
+						{
+							return false;
+						}
+					}
+				}
+			}
+
+		}
+	}
 
 	return true;
 }

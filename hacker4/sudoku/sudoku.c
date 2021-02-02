@@ -72,7 +72,7 @@ bool startup(void);
 int  test(int entered_number);
 bool won(void);
 void solve_board(void);//Hacker Version
-bool test_for_solve(int itered_number, int y, int x)//Hacker Version
+bool test_for_solve(int itered_number, int y, int x);//Hacker Version
 bool solved(void);//Hacker Version
 
 

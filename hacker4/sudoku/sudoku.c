@@ -259,8 +259,12 @@ main(int argc, char *argv[])
             sprintf(temp, "%d", g.solved_board[g.y][g.x]);
             mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
             refresh();
+            show_cursor();
+            timeout(3000); //whait 3000ms
             if(has_colors())
                 attroff(COLOR_PAIR(PAIR_HINT));
+            draw_numbers();
+            break;
         }
 
 	//Enter Numbers on board

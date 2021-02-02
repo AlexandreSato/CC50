@@ -256,7 +256,7 @@ main(int argc, char *argv[])
             if(has_colors())
                 attron(COLOR_PAIR(PAIR_HINT));
             char temp[1];
-            sprintf(temp, "%d", g.solved_board[y][x]);
+            sprintf(temp, "%d", g.solved_board[g.y][g.x]);
             mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
             refresh();
             if(has_colors())
@@ -1053,7 +1053,7 @@ test_for_solve(int itered_number, int y, int x)
 		}
 	}
 	if (count_repetition > 0)
-		 return = false;
+		return false;
 	return true;
 }
 

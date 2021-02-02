@@ -587,12 +587,12 @@ load_board(void)
     }
 
     // load another board for solve, because we love the hacker edition
-    // fseek(fp, offset, SEEK_SET);
-    //     if (fread(g.solved_board, 81 * INTSIZE, 1, fp) != 1)
-    // {
-    //     fclose(fp);
-    //     return false;
-    // }
+    fseek(fp, offset, SEEK_SET);
+        if (fread(g.solved_board, 81 * INTSIZE, 1, fp) != 1)
+    {
+        fclose(fp);
+        return false;
+    }
 
     // w00t
     fclose(fp);
@@ -973,7 +973,6 @@ won(void)
 void
 solve_board(void)
 {
-    g.solved_board = g.board;
     while (!solved())
     {
         for ( int i = 0; i < 9; i++)

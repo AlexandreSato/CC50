@@ -260,9 +260,9 @@ main(int argc, char *argv[])
             mvaddstr(g.top + g.y + 1 + g.y/3, g.left + 2 + 2*(g.x + g.x/3), temp);
             refresh();
             show_cursor();
-            timeout(3000); //whait 3000ms
             if(has_colors())
                 attroff(COLOR_PAIR(PAIR_HINT));
+            sleep(1); //whait 1 second
             draw_numbers();
             break;
         }

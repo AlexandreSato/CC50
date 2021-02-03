@@ -75,6 +75,7 @@ bool won(void);
 void solve_board(void);//Hacker Version
 bool test_for_solve(int itered_number, int y, int x);//Hacker Version
 bool solved(void);//Hacker Version
+void brute_force(int y, int x);//Solve l337 is more difficult
 
 
 /*
@@ -980,7 +981,7 @@ won(void)
 void
 solve_board(void)
 {
-    while (!solved())
+    for (int count = 0; count < 89 && !solved(); count++)
     {
         for ( int i = 0; i < 9; i++)
         {
@@ -1000,15 +1001,13 @@ solve_board(void)
                     if (count_repetitions == 1)
                     {
                         g.solved_board[i][j] = tested_number;
-                    }   
+                    }
                 }
-                             
             }
-            
         }
-            
     }
-    
+//    if (!solved())
+//	brute_force(0, 0);
 }
 
 
@@ -1136,4 +1135,52 @@ solved(void)
 	}
 
 	return true;
+}
+
+
+/*
+ * Solving the board in recursive brute force
+ */
+
+void
+brute_force( int y, int x)
+{
+	if(solved())
+		return;
+	if (g.init_board[y][x] == 0)
+	{
+		for (int tested_number = 1; tested_number <= 9; tested_number++)
+		{
+			if (test_for_solve(tested_number, y, x))
+			{
+				g.solved_board[y][x] = tested_number;
+				if (x == 8)
+				{
+					y++;
+					x = 0;
+					brute_force(y, x);
+				}
+				else
+				{
+					x++;
+					brute_force(y, x);
+				}
+			}
+		}
+		g.solved_board[y][x] = 0;
+	}
+	else
+	{
+		if (x == 8)
+		{
+			y++;
+			x = 0;
+			brute_force(y, x);
+		}
+		else
+		{
+			x++;
+			brute_force(y, x);
+		}
+	}
 }

@@ -1,0 +1,21 @@
+Aluno: Alexandre Nobuharu Sato, Jabaquara-SP 17/02/2021
+
+Questões para o pset5 do curso CC50 (CS50 Harvard)
+
+Leia um pouco sobre os formatos de arquivo BMP, GIF, JPEG, PNG.Depois, em pset5/questions.txt, responda as
+questões abaixo:
+
+	0. Quantas cores diferentes cada formato suporta?
+	1. Qual destes formatos suporta animação?
+	2. Qual é a diferença entre a compressão com perdas e sem perdas?
+	3. Qual destes formatos é comprimido com perdas?
+
+
+	0. Quantas cores diferentes cada formato suporta?
+	R:BMP:podem variar de preto e branco (1 bit por pixel) de até 24 bits de cores (16,7 milhões de cores);
+	  GIF:
+
+
+1. Qual destes formatos suporta animação?
+2. Qual é a diferença entre a compressão com perdas e sem perdas?
+3. Qual destes formatos é comprimido com perdas?

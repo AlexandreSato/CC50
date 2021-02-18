@@ -13,9 +13,16 @@ questões abaixo:
 
 	0. Quantas cores diferentes cada formato suporta?
 	R:BMP:podem variar de preto e branco (1 bit por pixel) de até 24 bits de cores (16,7 milhões de cores);
-	  GIF:
+	  GIF:GIF só trabalha com esquema de 256 cores (8 bits), por isso não é muito comum em fotografias;
+	  JPEG: 16 milhões de cores;
+	  PNG: Até 16 milhões de cores.
+	(Fonte: https://www.techtudo.com.br/artigos/noticia/2012/07/entenda-os-formatos-dos-arquivos-de-imagem.html)
 
+	1. Qual destes formatos suporta animação?
+	R: GIF e PNG.
 
-1. Qual destes formatos suporta animação?
-2. Qual é a diferença entre a compressão com perdas e sem perdas?
-3. Qual destes formatos é comprimido com perdas?
+	2. Qual é a diferença entre a compressão com perdas e sem perdas?
+	R: A possibilidade de recuperação exata dos dados originais após o processo de descompressão.
+
+	3. Qual destes formatos é comprimido com perdas?
+	R: GIF, JPEG-DTC.

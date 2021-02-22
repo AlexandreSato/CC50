@@ -26,3 +26,15 @@ questões abaixo:
 
 	3. Qual destes formatos é comprimido com perdas?
 	R: GIF, JPEG-DTC.
+
+
+	4.O que acontece, tecnicamente falando, quando um arquivo é removido de um sistema de
+	arquivos FAT?
+	R: Os dados do arquivo em sí não são apagados da memória, o que acontece é que o sistema simplesmente "esquece" que aqueles 
+	   endereços de memória têm finalidades específicas inerentes àquele arquivo removido e agora estão disponíveis para qualquer
+	   outra utilização. Então remover um arquivo em um sistema FAT não significa "limpar o espaço" mas sim "deixar disponível
+	   para outra utilização".
+
+	5.O que alguém como você pode fazer para garantir (com alta probabilidade) que os arquivos que
+	você excluir não poderão ser recuperados?
+	R: Sobreescrever a memória utilizada por aquele arquivo no mínimo duas vezes com dados aleatórios.

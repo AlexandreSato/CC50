@@ -28,19 +28,29 @@ questões abaixo:
 	R: GIF, JPEG-DTC.
 
 
-	4.O que acontece, tecnicamente falando, quando um arquivo é removido de um sistema de
-	arquivos FAT?
-	R: Os dados do arquivo em sí não são apagados da memória, o que acontece é que o sistema simplesmente "esquece" que aqueles 
-	   endereços de memória têm finalidades específicas inerentes àquele arquivo removido e agora estão disponíveis para qualquer
-	   outra utilização. Então remover um arquivo em um sistema FAT não significa "limpar o espaço" mas sim "deixar disponível
-	   para outra utilização".
+4.O que acontece, tecnicamente falando, quando um arquivo é removido de um sistema de arquivos FAT?
+R: Os dados do arquivo em sí não são apagados da memória, o que acontece é que o sistema simplesmente "esquece" que aqueles 
+   endereços de memória têm finalidades específicas inerentes àquele arquivo removido e agora estão disponíveis para qualquer
+   outra utilização. Então remover um arquivo em um sistema FAT não significa "limpar o espaço" mas sim "deixar disponível
+   para outra utilização".
 
-	5.O que alguém como você pode fazer para garantir (com alta probabilidade) que os arquivos que
-	você excluir não poderão ser recuperados?
-	R: Sobreescrever a memória utilizada por aquele arquivo no mínimo duas vezes com dados aleatórios.
+5.O que alguém como você pode fazer para garantir (com alta probabilidade) que os arquivos que
+  você excluir não poderão ser recuperados?
+R: Sobreescrever a memória utilizada por aquele arquivo no mínimo duas vezes com dados aleatórios.
 	
-	6. O que é stdint.h?
-	R: É um arquivo de cabeçalho utilizado para se determinar o tipo de inteiro e seu respectivo tamanho que será utilizado em cada variável.
+6. O que é stdint.h?
+R: É um arquivo de cabeçalho utilizado para se determinar o tipo de inteiro e seu respectivo tamanho que será utilizado 
+   em cada variável.
 
-	7. Porque se usa uint8_t, uint32_t, int32_t e uint16_t em um programa?
-	R: Para permitir que uma implementação seja compatível com tipos de hardwares diferentes, e também para garantir que os inteiros sejam representados exatamente com N bits.
+7. Porque se usa uint8_t, uint32_t, int32_t e uint16_t em um programa?
+R: Para permitir que uma implementação seja compatível com tipos de hardwares diferentes, 
+   e também para garantir que os inteiros sejam representados exatamente com N bits.
+
+8. Quantos bytes tem um BYTE, uma DWORD, um LONG e uma WORD, respectivamente?
+R: BYTE = 1 byte, DWORD = 4 bytes, LONG = (3 bytes + 7 bits + 1 bit para o sinal) e WORD = 2 bytes.
+
+9. O que (em ASCII, decimal ou hexadecimal) devem ser os dois primeiros bytes de qualquer arquivo BMP?
+R: ASCII: BM	       decimal: 19778		hexadecimal: 0x4d42
+
+10. Qual é a diferença entre bfSize e biSize?
+R: 

@@ -53,4 +53,21 @@ R: BYTE = 1 byte, DWORD = 4 bytes, LONG = (3 bytes + 7 bits + 1 bit para o sinal
 R: ASCII: BM	       decimal: 19778		hexadecimal: 0x4d42
 
 10. Qual é a diferença entre bfSize e biSize?
-R: 
+R: bfSize é o tamanho do arquivo todo, biSize é o tamanho do BITMAPINFOHEADER
+	Fonte: https://stackoverflow.com/questions/25713117/what-is-the-difference-between-bisizeimage-bisize-and-bfsize
+
+11. O que significa se biHeight for negativo?
+R: Significa que imagem foi gerada de cima para baixo (início do buffer à esquerda).
+
+12. Que campo em BITMAPINFOHEADER especifica a cor do BMP (bits por pixel)?
+R: biBitCount.
+
+13. Por que fopen pode retornar NULL em copy.c:32?
+R: Por alguma razão o programa não conseguiu acessar o documento informado em argv[1], o nome pode ter sido escrito errado,
+   o arquivo não existe, ou o arquivo existe e não tem permissão para abri-lo, etc. A maneira mais correta de ter certeza
+   é consultando o código "errno".
+
+14. Porque é que o terceiro argumento de fread é sempre 1 em nosso código?
+15. Qual o valor que copy.c:69 atribui a padding se bi.biWidth é 3?
+16. O que é que fseek faz?
+17. O que é SEEK_CUR? 

@@ -68,6 +68,10 @@ R: Por alguma razão o programa não conseguiu acessar o documento informado em 
    é consultando o código "errno".
 
 14. Porque é que o terceiro argumento de fread é sempre 1 em nosso código?
+R: O terceiro argumento de fread indica quantos alementos de dados devem ser lidos. A função fread retorna a quantidade de 
+   elementos que conseguiu ler. O terceiro argumento é 1 porque precisamos ter certeza que a função fread conseguiu ler um
+   bloco inteiro de dados, pois uma leitura parcial em pequenos pacotes não nos interessa nesta situação.
+
 15. Qual o valor que copy.c:69 atribui a padding se bi.biWidth é 3?
 16. O que é que fseek faz?
 17. O que é SEEK_CUR? 

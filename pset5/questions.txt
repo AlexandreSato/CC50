@@ -73,5 +73,13 @@ R: O terceiro argumento de fread indica quantos alementos de dados devem ser lid
    bloco inteiro de dados, pois uma leitura parcial em pequenos pacotes não nos interessa nesta situação.
 
 15. Qual o valor que copy.c:69 atribui a padding se bi.biWidth é 3?
+R: Tendo em vista que o padding completa cada linha da imagem cuja quantidade de bytes não seja multíplo de 4 com bytes "zerados"
+   e que o tamanho de RGBTRIPLE é 3 bytes
+   então bi.biWidth * sizeof(RGBTRIPLE) = ?
+	     3	    *	3		= 9 (serão necessários 9 bytes para construir cada linha da imagem de 3 pixel)
+
+  logo o multíplo de 4 mais próximo acima de 9 é o 12, então o padding = 12 - 9
+  concluindo quando bi.biWidht é 3 então valor de padding será: 3 (três) bytes, pois 12 - 9 = 3.	
+
 16. O que é que fseek faz?
 17. O que é SEEK_CUR? 

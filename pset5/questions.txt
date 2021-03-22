@@ -82,4 +82,25 @@ R: Tendo em vista que o padding completa cada linha da imagem cuja quantidade de
   concluindo quando bi.biWidht é 3 então valor de padding será: 3 (três) bytes, pois 12 - 9 = 3.	
 
 16. O que é que fseek faz?
+R:  É uma função de stdio.h que posiciona um ponteiro para arquivo. Com esta função pode se escolher
+    posições aleatórias e específica num arquivo. O indicador de posição é movimentado byte a byte
+    dentro de um arquivo.
+   
+    A sintaxe é:
+	fseek ( Arquivo, total_em_bytes, Origem );  
+   
+    onde:
+    Arquivo - É um ponteiro para arquivo
+    total_em_bytes - Representa a quantidade de bytes que o indicador de posição será movimentado
+    Origem - É a partir de onde iniciará o indicador de posição. (Ex.: SEEK_SET, SEEK_CUR, SEEK_END)
+
+
+
 17. O que é SEEK_CUR? 
+R:  Para usar a função fseek, devemos usar uma das seguintes macros:
+
+    SEEK_SET para a Origem no início do arquivo
+    SEEK_CUR para a Origem na posição atual do indicador de posição
+    SEEK_END para a Origem no final do arquivo
+
+    Todas estas macros estão incluidas na biblioteca stdio.h.

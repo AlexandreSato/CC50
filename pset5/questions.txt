@@ -104,3 +104,7 @@ R:  Para usar a função fseek, devemos usar uma das seguintes macros:
     SEEK_END para a Origem no final do arquivo
 
     Todas estas macros estão incluidas na biblioteca stdio.h.
+
+18. Escreva um programa chamado "whodunit" que revela as últimas palavras do Coronel Mostarda escondidas em clue.bmp.
+    Quem fez isso? E onde? E com que arma?
+R: Foi o professor Plum, no salão utilizando o candelabro.

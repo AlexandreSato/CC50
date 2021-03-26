@@ -1,14 +1,14 @@
 /****************************************************************************
- * whodunit.c
+ * resize.c
  *
  * CC50
  * Pset 5
  *
- * Reveals the messsage Colonel Mostarda hidden in "clue.bmp"
+ * Multiplies pixels by a factor "n"
  *
- * by: Alexandre Nobuharu Sato, Ribeirão Pires-SP, 26 de março de 2021
+ * By: Alexandre Nobuharu Sato, Ribeirão Pires-SP, 26 de março de 2021
  ***************************************************************************/
-       
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,18 +18,29 @@
 int
 main(int argc, char *argv[])
 {
+
+    //"n" factor
+    int n = atoi(arg[1]);
+
     // ensure proper usage
-    if (argc != 3)
+    if (argc != 4)
     {
-        printf("Usage: copy infile outfile\n");
+        printf("Usage: resize n infile outfile\n");
         return 1;
     }
 
-    // remember filenames
-    char *infile = argv[1];
-    char *outfile = argv[2];
+    // ensure n is between 1 and 100
+    if (n < 1 || n > 100)
+    {
+	printf("n must be between 1 and 100\n");
+	return 1;
+    }
 
-    // open input file 
+    // remember filenames
+    char *infile = argv[2];
+    char *outfile = argv[3];
+
+    // open input file
     FILE *inptr = fopen(infile, "r");
     if (inptr == NULL)
     {
@@ -85,19 +96,7 @@ main(int argc, char *argv[])
             // read RGB triple from infile
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
 
-	    // decripting
-	    if ((triple.rgbtBlue == 0 && triple.rgbtGreen == 0 && triple.rgbtRed == 255) || (triple.rgbtBlue == 255 && triple.rgbtGreen == 255 && triple.rgbtRed == 255))
-	    {
-		triple.rgbtBlue = 0;
-		triple.rgbtGreen = 0;
-		triple.rgbtRed = 0;
-	    }
-
-	    // closer look at these "hidden bytes"
-//	    if (!((triple.rgbtBlue == 0 && triple.rgbtGreen == 0 && triple.rgbtRed == 255) || (triple.rgbtBlue == 255 && triple.rgbtGreen == 255 && triple.rgbtRed == 255) || (triple.rgbtBlue == 0 && triple.rgbtGreen == 0 && triple.rgbtRed == 0)))
-//		printf("Blue: %3d   Green: %3d   Red: %3d\n", triple.rgbtBlue, triple.rgbtGreen, triple.rgbtRed);
-
-           // write RGB triple to outfile
+            // write RGB triple to outfile
             fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
         }
 

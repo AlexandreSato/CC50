@@ -65,6 +65,10 @@ main(int argc, char *argv[])
     BITMAPINFOHEADER bi;
     fread(&bi, sizeof(BITMAPINFOHEADER), 1, inptr);
 
+    // make a copy for bi_output
+    BITMAPINFOHEADER bi_out;
+    bi_out = bi;
+
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
     if (bf.bfType != 0x4d42 || bf.bfOffBits != 54 || bi.biSize != 40 || 
         bi.biBitCount != 24 || bi.biCompression != 0)
@@ -79,16 +83,16 @@ main(int argc, char *argv[])
     int padding_out =  (4 - (bi.biWidth * n * sizeof(RGBTRIPLE)) % 4) % 4;
 
     // recalculate header
-    bi.biWidth *= n;
-    bi.biHeight *= n;
-    bi.biSizeImage = (bi.biWidth * sizeof (RGBTRIPLE) + padding_out) * abs(bi.biHeight);
-    bf.bfSize = bi.biSizeImage + bf.bfOffBits;
+    bi_out.biWidth = bi.biWidth * n;
+    bi_out.biHeight = bi.biHeight * n;
+    bi_out.biSizeImage = (bi_out.biWidth * sizeof (RGBTRIPLE) + padding_out) * abs(bi_out.biHeight);
+    bf.bfSize = bi_out.biSizeImage + bf.bfOffBits;
 
     // write outfile's BITMAPFILEHEADER
     fwrite(&bf, sizeof(BITMAPFILEHEADER), 1, outptr);
 
     // write outfile's BITMAPINFOHEADER
-    fwrite(&bi, sizeof(BITMAPINFOHEADER), 1, outptr);
+    fwrite(&bi_out, sizeof(BITMAPINFOHEADER), 1, outptr);
 
     // determine padding for scanlines
     int padding =  (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;

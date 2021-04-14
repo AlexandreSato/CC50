@@ -5,14 +5,14 @@
 #include <cc50.h>
 
 void
-swap (char *M, char *N); //Protótipo da função
+swap (char **M, char **N); //Protótipo da função
 
-
-char *A;
-char *B;
 
 int
 main (void){
+
+	char *A;
+	char *B;
 
 	printf ("\nDigite a string A:");
 	A = GetString();
@@ -20,7 +20,7 @@ main (void){
 	B = GetString();
 
 	printf ("\nInvocando a função swap\n");
-	swap(A, B);
+	swap(&A, &B);
 
 	printf ("A string A é: %s\n", A);
 	printf ("A string B é: %s\n", B);
@@ -28,12 +28,12 @@ main (void){
 
 
 void
-swap (char *M, char *N) { //Definição da função swap
+swap (char **M, char **N) { //Definição da função swap
 
 	//Trocando as strings
-	char *TEMP = A;
-	A = B;
-	B = TEMP;
+	char *TEMP = *M;
+	*M = *N;
+	*N = TEMP;
 
 	printf ("Trocando ...\n");
 

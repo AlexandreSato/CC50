@@ -1,0 +1,43 @@
+Pset 6 do curso cc50, Alexandre Nobuharu Sato, Ribeirão Pires - SP, 24 de abril de 2021.
+
+0. O que é pneumoultramicroscopicossilicovulcanoconiose?
+R: É a maior palavra de língua portuguesa, com 44 letras.
+
+1. De acordo com a sua página do manual, o que getrusage fazer?
+R: Ela retorna a utilização de recursos pelo chamador e sua sintaxe
+é int getrusage(int who, struct rusage *usage); onde who pode ser
+ RUSAGE_SELF
+ RUSAGE_CHILDREN
+ RUSAGE_THREAD.
+
+2. De acordo com a mesma página, quantos membros tem uma variável do tipo struct rusage?
+R: 16 membros:
+
+           struct rusage {
+               struct timeval ru_utime; /* user CPU time used */
+               struct timeval ru_stime; /* system CPU time used */
+               long   ru_maxrss;        /* maximum resident set size */
+               long   ru_ixrss;         /* integral shared memory size */
+               long   ru_idrss;         /* integral unshared data size */
+               long   ru_isrss;         /* integral unshared stack size */
+               long   ru_minflt;        /* page reclaims (soft page faults) */
+               long   ru_majflt;        /* page faults (hard page faults) */
+               long   ru_nswap;         /* swaps */
+               long   ru_inblock;       /* block input operations */
+               long   ru_oublock;       /* block output operations */
+               long   ru_msgsnd;        /* IPC messages sent */
+               long   ru_msgrcv;        /* IPC messages received */
+               long   ru_nsignals;      /* signals received */
+               long   ru_nvcsw;         /* voluntary context switches */
+               long   ru_nivcsw;        /* involuntary context switches */
+           };
+
+3. Porque você acha que passamos before e after por referência (em vez de por valor) para
+calculate, mesmo que nós não estejamos mudando os seus conteúdos?
+4. Explicar com a maior precisão possível, em um parágrafo ou mais, como main age para ler as
+palavras de um arquivo. Em outras palavras, nos convença de que você realmente entende
+como o for loop dessa função funciona.
+5. Porque você acha que nós usamos fgetc para ler cada caracter de cada palavra ao vez ao
+invés de fscanf com uma string formatada como "%s" para ler palavras inteiras de uma
+vez? Dito de outra forma, que problemas poderiam surgir ao depender de fscanf para
+realizar essa tarefa?

@@ -1,6 +1,7 @@
 #!/bin/bash
 sudo apt-get install gcc
 wget http://cc50.com.br/downloads/resources/cc50_c_library.zip
+sudo apt install zip
 unzip cc50_c_library.zip
 rm -f cc50_c_library.zip
 gcc -c -ggdb -std=c99 cc50.c -o cc50.o

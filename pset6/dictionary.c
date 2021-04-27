@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h> //for malloc
+#include <ctype.h> //for isalpha()
 
 #include "dictionary.h"
 
@@ -42,10 +43,27 @@ load(const char *dict)
         return false;
     }
     
-    struct node *dad = NULL;
-    dad = (struct  node *) malloc(sizeof(struct node));
+    struct node *node = NULL;
+    node = (struct node *) malloc(sizeof(struct node));
+    node->end = false;
 
-    dad->end = true;
+    int index = 0;
+    for (int c = fgetc(fp); c != EOF; c = fgetc(fp)) 
+    {
+        if(isalpha(c) || (c == '\'' && index > 0))
+        {
+            //TODO
+            node->son[c & 0x9f] = (struct node *) malloc(sizeof(struct node));
+            node = node->son[c & 0x9f];
+        }
+        else if (index > 0)
+        {
+            //TODO
+            node->end = true;
+            Size++;
+            index = 0;
+        }
+    }
     
     return true;
 }

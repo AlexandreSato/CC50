@@ -1,7 +1,9 @@
 Pset 6 do curso cc50, Alexandre Nobuharu Sato, Ribeirão Pires - SP, 24 de abril de 2021.
 
+
 0. O que é pneumoultramicroscopicossilicovulcanoconiose?
 R: É a maior palavra de língua portuguesa, com 44 letras.
+
 
 1. De acordo com a sua página do manual, o que getrusage fazer?
 R: Ela retorna a utilização de recursos pelo chamador e sua sintaxe
@@ -9,6 +11,7 @@ R: Ela retorna a utilização de recursos pelo chamador e sua sintaxe
  RUSAGE_SELF
  RUSAGE_CHILDREN
  RUSAGE_THREAD.
+
 
 2. De acordo com a mesma página, quantos membros tem uma variável do tipo struct rusage?
 R: 16 membros:
@@ -32,12 +35,37 @@ R: 16 membros:
                long   ru_nivcsw;        /* involuntary context switches */
            };
 
+
 3. Porque você acha que passamos before e after por referência (em vez de por valor) para
 calculate, mesmo que nós não estejamos mudando os seus conteúdos?
+R: Eu acho que é para maximizar a eficiência da utilização de recursos, tais como
+
+Tempo de desenvolvimento: É mais simples codificar passando a referência da memória de uma estrutura 
+completa do que passar cada um de seus membros utilizando argumentos na função, neste exercício por 
+exemplo teríamos que passar no mínimo quatro argumentos de função mas ao invés disso passamos apenas
+dois endereços de memória e temos disponível diversos dados estatíscos disponíveis na estrutura rusage.
+
+Economia de memória: Precisaríamos duplicar a utilização de memória para cada argumento que criássemos.
+
+Velocidade de execução: O programa roda muito mais rápido se acessa diretamente a memória com 
+ponteiros do que se ficar duplicando informação e apagando.
+
+
 4. Explicar com a maior precisão possível, em um parágrafo ou mais, como main age para ler as
 palavras de um arquivo. Em outras palavras, nos convença de que você realmente entende
 como o for loop dessa função funciona.
+R: Ele "trava" a função fgetc() num loop carregando caractere alfabético por caractere da palavra 
+em cada índice do array "word" até encontrar o próximo caractere que não seja alfabético, quando ele
+encontra esse ele sai do loop coloca um "\0" como último índice do array 
+word e incrementa mais um no contador "words++".
+Lembrando que quando o loop encontra um caractere que seja numérico OU a palavra se torne maior que
+44 letras ele simplesmente termina de "consumir" a leitura de toda a palavra e zera o index novamente
+fazendo com que as palavras contendo números ou excessivamente compridas sejam literalmente ignoradas.
+
+
 5. Porque você acha que nós usamos fgetc para ler cada caracter de cada palavra ao vez ao
 invés de fscanf com uma string formatada como "%s" para ler palavras inteiras de uma
 vez? Dito de outra forma, que problemas poderiam surgir ao depender de fscanf para
 realizar essa tarefa?
+R: Se utilizar fscanf não há meios de saber se o caracter indesejado pertence à composição da palavra
+ou não. 

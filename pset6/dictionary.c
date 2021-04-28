@@ -30,7 +30,7 @@ check(const char *word)
 
 
 /*
- * Loads dict into memory.  Returns true if successful else false. Begins 2021/04/27
+ * Loads dict into memory.  Returns true if successful else false. begin in 2021/04/27 end in 2021/04/28
  */
 
 bool
@@ -46,19 +46,20 @@ load(const char *dict)
     struct node *node = NULL;
     node = (struct node *) malloc(sizeof(struct node));
     node->end = false;
+    struct node *dad = node;// Save the inicial address
 
     int index = 0;
     for (int c = fgetc(fp); c != EOF; c = fgetc(fp)) 
     {
         if(isalpha(c) || (c == '\'' && index > 0))
         {
-            //TODO
             node->son[c & 0x9f] = (struct node *) malloc(sizeof(struct node));
-            node = node->son[c & 0x9f];
+            node = node->son[c & 0x9f]; // & 0x9f convert char A, B, C... to 1, 2, 3...
+            index++;
         }
         else if (index > 0)
         {
-            //TODO
+            node = dad; // return to the begin
             node->end = true;
             Size++;
             index = 0;

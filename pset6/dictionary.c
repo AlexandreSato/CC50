@@ -59,8 +59,8 @@ load(const char *dict)
         }
         else if (index > 0)
         {
-            node = dad; // return to the begin
             node->end = true;
+            node = dad; // return to the begin
             Size++;
             index = 0;
         }

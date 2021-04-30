@@ -15,7 +15,9 @@
 
 #include "dictionary.h"
 
-int Size = 0; //number of words in dictionary
+node *dad; // head of the dict linked list
+int Size = 0; // number of words in dictionary
+void movefoward(node *node); //prototype for unload()
 
 /*
  * Returns true if word is in dictionary else false.
@@ -25,7 +27,18 @@ bool
 check(const char *word)
 {
     // TODO
-    return false;
+    node *node = dad;
+    for (int i = 0; word[i] != '\0'; i++)
+    {
+        if (node->son[word[i] & 0x9f] == NULL)
+            return false;
+        node = node->son[word[i] & 0x9f];
+    }
+
+    if (node->end)
+        return true;
+    else
+        return false;
 }
 
 
@@ -46,14 +59,15 @@ load(const char *dict)
     struct node *node = NULL;
     node = (struct node *) malloc(sizeof(struct node));
     node->end = false;
-    struct node *dad = node;// Save the inicial address
+    dad = node;// Save the inicial address
 
     int index = 0;
     for (int c = fgetc(fp); c != EOF; c = fgetc(fp)) 
     {
         if(isalpha(c) || (c == '\'' && index > 0))
         {
-            node->son[c & 0x9f] = (struct node *) malloc(sizeof(struct node));
+            if  (node->son[c & 0x9f] == NULL)
+                node->son[c & 0x9f] = (struct node *) malloc(sizeof(struct node));
             node = node->son[c & 0x9f]; // & 0x9f convert char A, B, C... to 1, 2, 3...
             index++;
         }
@@ -90,6 +104,21 @@ size(void)
 bool
 unload(void)
 {
-    // TODO
-    return false;
+    node *node = dad;
+    for (int i = 0; i < 28; i++)
+        movefoward(node->son[i]);
+    
+    free(node);
+    return true;
+}
+
+void
+movefoward(node *node)
+{
+    if (node == NULL)
+        return;
+    
+    for (int i = 0; i < 28; i++)
+        movefoward(node->son[i]);
+    free(node);    
 }

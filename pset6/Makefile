@@ -10,7 +10,7 @@
 CC = gcc
 
 # flags to pass compiler
-CFLAGS = -ggdb -std=c99 -Wall -Werror -Wformat=0
+CFLAGS = # -ggdb -std=c99 -Wall -Werror -Wformat=0
 
 # name for executable
 EXE = speller

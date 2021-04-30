@@ -69,3 +69,35 @@ vez? Dito de outra forma, que problemas poderiam surgir ao depender de fscanf pa
 realizar essa tarefa?
 R: Se utilizar fscanf não há meios de saber se o caracter indesejado pertence à composição da palavra
 ou não. 
+
+
+6. Por que você acha que nós declaramos tantos parâmetros const em dictionary.c e
+dictionary.h?
+R: Para impedir que algum erro na implementação das funções load e check modificassem o conteúdo das
+variáveis passadas. O parâmetro const altera o contrato estabelecido entre funções que passam entre
+sí estas variáveis. Quando se utiliza const no parâmetro a função que recebe a variável pode alterar
+o ponteiro, mas não pode alterar o conteúdo do array. Já quando não se utiliza o parâmetro "const"
+a função que recebe a variável não pode alterar o ponteiro mas pode alterar o conteúdo do array.
+
+
+7. Qual estrutura de dado(s) você usou para implementar o seu corretor ortográfico? Certifique-se
+de não responder apenas "hash table", "trie", ou coisa parecida. Fale um pouco sobre o que
+está dentro de cada um dos seus "nós".
+R: Eu utilizei uma lista encadeada, onde cada item da lista possui um indicador booleano indicando
+se é o final ou não de uma palavra e 26 nós ponteiros para a mesma estrutura chamado de filhos, onde 
+cada um deles corresponde ao caracter da palavra, por exemplo: A ou a = node->son[1], B ou b = node-
+->son[2], C ou c = node->son[3], etc ... Deste mode quando a função check() percorre pelo vetor de 
+ponteiros e de fato o "caminho existe" e no final da palavra testada existe um node->end == true
+então a palavra existe no dicionário caso contrário não.
+
+
+8. Quão lento era o seu código na primeira vez que você o fez funcionar?
+R: Não foi lento, pois o método escolhido é o análogo ao algoritmo de ordenação sort O(n).
+
+
+9. Que tipos de alterações, se for o caso, você fez no seu código ao longo da semana (er, quintfeira), a fim de melhorar o seu desempenho?
+R: Nenhum.
+
+
+10. Você sente que o seu código tem alguma parte pesada que você não foi capaz de desbastar?
+R: Não.

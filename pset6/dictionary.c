@@ -52,7 +52,6 @@ load(const char *dict)
     FILE *fp = fopen(dict, "r");
     if (fp == NULL)
     {
-        unload();
         return false;
     }
     
@@ -106,7 +105,8 @@ unload(void)
 {
     node *node = dad;
     for (int i = 0; i < 28; i++)
-        movefoward(node->son[i]);
+        if (node->son[i] !=NULL)
+           movefoward(node->son[i]);
     
     free(node);
     return true;
@@ -115,10 +115,9 @@ unload(void)
 void
 movefoward(node *node)
 {
-    if (node == NULL)
-        return;
-    
     for (int i = 0; i < 28; i++)
-        movefoward(node->son[i]);
+        if (node->son[i] != NULL)
+            movefoward(node->son[i]);
+    
     free(node);    
 }

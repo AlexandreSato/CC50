@@ -3,7 +3,7 @@
     // valida o registro
     if ($_POST["nome"] == "" || $_POST["sexo"] == "" || $_POST["curso"] == "")
     {
-        header("Location: http://localhost/class/register/index.php");
+        header("Location: http://localhost/register/index.php");
         exit;
     }
 

@@ -9,7 +9,7 @@
   <body>
     <div style="text-align: center">
       <h1 style="text-align: center;">Quer ser aluno do CC50?</h1>
-      <form action="register2.php" method="post">
+      <form action="register.php" method="post">
         <table style="border: 0; margin-left: auto; margin-right: auto; text-align: left">
           <tr>
             <td>Nome:</td>

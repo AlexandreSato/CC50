@@ -1,4 +1,4 @@
-<?
+<?php
 
     /***********************************************************************
      * common.php
@@ -35,7 +35,7 @@
     if (DB_NAME == "") apologize("You left DB_NAME blank.");
     if (DB_USER == "") apologize("You left DB_USER blank.");
     if (DB_PASS == "") apologize("You left DB_PASS blank.");
-
+/* 
     // connect to database server
     if (($connection = @mysql_connect(DB_SERVER, DB_USER, DB_PASS)) === FALSE)
         apologize("Não foi possível conectar ao banco de dados. " .
@@ -44,5 +44,5 @@
     // select database
     if (@mysql_select_db(DB_NAME, $connection) === FALSE)
         apologize("Não foi possível selecionar o banco de dados (" . DB_NAME . ").");
-
+ */
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 
     // require common code
     require_once("includes/common.php");
@@ -42,7 +42,21 @@
 
     <div id="bottom">
       ou <a href="register.php">registre-se</a> no site
+
+      <br><br>
+      <!-- <a href="includes/dump.php">DUMP</a> -->
+      <form action="login.php" method="post">
+        <input type="submit" name="someAction" value="GO DUMP $_POST">
+      </form>
+      <?php
+        if($_SERVER['REQUESTED_METHOD']=="POST" and isset($_POST['someAction']))
+        {
+          // dump($_POST);
+          print_r($_POST);
+        }
+      ?>
     </div>
+
 
   </body>
 

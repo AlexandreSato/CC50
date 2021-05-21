@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <pre><? print_r($variable) ?></pre>
+    <pre><?php print_r($variable) ?></pre>
   </body>
 
 </html>

@@ -1,4 +1,4 @@
-<?
+<?php
 
     /***********************************************************************
      * constants.php
@@ -14,10 +14,10 @@
     define("DB_NAME", "finance");
 
     // o administrador do seu banco de dados
-    define("DB_USER", "root");
+    define("DB_USER", "sato");
 
     // a senha do seu banco de dados
-    define("DB_PASS", "");
+    define("DB_PASS", "x$#Ab79CcD156.4");
 
     // o servidor onde o seu banco de dados está hospedado
     define("DB_SERVER", "localhost");

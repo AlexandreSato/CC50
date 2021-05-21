@@ -1,4 +1,4 @@
-<?
+<?php
 
     /***********************************************************************
      * helpers.php
@@ -100,7 +100,9 @@
         if ($data[2] == 0.00)
             return NULL;
 
-        // instantiate a stock object
+        return NULL; // Needs Fix Structure of Yahoo first
+
+/*         // instantiate a stock object
         $stock = new Stock();
 
         // remember stock's symbol and trades
@@ -114,7 +116,7 @@
         $stock->low = $data[8];
 
         // return stock
-        return $stock;
+        return $stock; */
     }
 
 

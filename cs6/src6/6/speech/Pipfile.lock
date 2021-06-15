@@ -1,0 +1,24 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "d6a2e45c50739d7ba6dcbdb3fa937145f0a176c8be088cbcde1cad598509528a"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.8"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "bf7beb6": {
+            "path": "./pyttsx3"
+        }
+    },
+    "develop": {}
+}

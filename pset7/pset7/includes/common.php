@@ -35,14 +35,14 @@
     if (DB_NAME == "") apologize("You left DB_NAME blank.");
     if (DB_USER == "") apologize("You left DB_USER blank.");
     if (DB_PASS == "") apologize("You left DB_PASS blank.");
-/* 
+
     // connect to database server
-    if (($connection = @mysql_connect(DB_SERVER, DB_USER, DB_PASS)) === FALSE)
+    if (($connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS)) === FALSE)
         apologize("Não foi possível conectar ao banco de dados. " .
          "<br>Cheque os valores de DB_NAME, DB_PASS, e DB_USER em constants.php.");
 
     // select database
-    if (@mysql_select_db(DB_NAME, $connection) === FALSE)
+    if (mysqli_select_db($connection, DB_NAME) === FALSE)
         apologize("Não foi possível selecionar o banco de dados (" . DB_NAME . ").");
- */
+
 ?>

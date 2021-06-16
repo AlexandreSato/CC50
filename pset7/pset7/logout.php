@@ -1,4 +1,4 @@
-<?
+<?php
 
     // require common code
     require_once("includes/common.php"); 

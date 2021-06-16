@@ -17,7 +17,7 @@
 
     <div id="middle">
       <h1>Ops!</h1>
-      <h2><?php = $message ?></h2>
+      <h2><?php print $message ?></h2>
     </div>
 
     <div id="bottom">

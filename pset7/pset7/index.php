@@ -22,6 +22,12 @@
     </div>
 
     <div id="middle">
+      <form action="quote2.php" method="post">
+        <p><input type="submit" value="Consultar Ação NFLX">
+      </form>
+
+      <a href="quote2.php">Consultar Ação NFLX</a><br><br>
+
       <img alt="Em construção" height="299" src="images/construction.gif" width="404">
     </div>
 

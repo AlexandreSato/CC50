@@ -86,37 +86,35 @@
             return NULL;
 
         // open connection to Yahoo
-        if (($fp = @fopen(YAHOO . $symbol, "r")) === FALSE)
+        // if (($fp = @fopen(YAHOO . $symbol, "r")) === FALSE)
+        if (($fp = @fopen("https://query1.finance.yahoo.com/v7/finance/download/NFLX?period1=1623974400&period2=1624233600&interval=1d&events=history&includeAdjustedClose=true", "r")) === FALSE)
             return NULL;
 
-        // download first line of CSV file
+        // Testing whether the connection to Yahoo was succesfully estabilished
         if (($data = fgetcsv($fp)) === FALSE || count($data) == 1)
             return NULL;
+            
+        // download first line of CSV file
+        $data = fgetcsv($fp);
 
         // close connection to Yahoo
         fclose($fp);
 
-        // ensure symbol was found
-        if ($data[2] == 0.00)
-            return NULL;
-
-        return NULL; // Needs Fix Structure of Yahoo first
-
-/*         // instantiate a stock object
+        // instantiate a stock object
         $stock = new Stock();
 
         // remember stock's symbol and trades
-        $stock->symbol = $data[0];
-        $stock->name = $data[1];
-        $stock->price = $data[2];
-        $stock->time = strtotime($data[3] . " " . $data[4]);
-        $stock->change = $data[5];
-        $stock->open = $data[6];
-        $stock->high = $data[7];
-        $stock->low = $data[8];
+        //$stock->time = $data[0]; //strtotime($data[0]      /* $data[3] . " " . $data[4] */);
+        $stock->open = $data[1];
+        $stock->high = $data[2];
+        $stock->low = $data[3];
+        $stock->price = $data[4];
+        $stock->adjPrice = $data[5];
+        $stock->volume = $data[6]
 
-        // return stock
-        return $stock; */
+        return $stock;
+
+        // return $data; 
     }
 
 

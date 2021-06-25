@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-    <title>CC50 Finanças: Log in</title>
+    <title>CC50 Finanças: Register</title>
   </head>
 
   <body>
@@ -23,7 +23,7 @@
     </div>
 
     <div id="middle">
-      <form action="login2.php" method="post">
+      <form action="register2.php" method="post">
         <table>
           <tr>
             <td>Usuário:</td>
@@ -34,16 +34,35 @@
             <td><input name="password" type="password"></td>
           </tr>
           <tr>
+            <td>Repita senha:</td>
+            <td><input name="password2" type="password"></td>
+          </tr>
+          <tr>
             <td></td>
-            <td><input type="submit" value="Log In"></td>
+            <td><input type="submit" value="Registrar"></td>
           </tr>
         </table>
       </form>
     </div>
 
     <div id="bottom">
-      ou <a href="register.php">registre-se</a> no site
+      ou <a href="login.php">logue-se</a> no site
     </div>
+
+    <!-- <div id="bottom">
+      Teste de texto
+      <?php
+        $arr = array("red"=>"login.php", "green"=>"register.php", "blue");
+        // $str = '<br>Teste de texto 2';
+        // $str .= '<br>Teste de texto 3';
+        // echo($arr);
+        // print_r($arr);
+        foreach($arr as $value => $link)
+        {
+          echo "<br> <a href=$link> $value </a>";
+        }
+      ?>
+    </div> -->
 
 
   </body>

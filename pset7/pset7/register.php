@@ -49,6 +49,7 @@
       ou <a href="login.php">logue-se</a> no site
     </div>
 
+    <!-- Teste para carregar html e links de uma array usando php -->
     <!-- <div id="bottom">
       Teste de texto
       <?php

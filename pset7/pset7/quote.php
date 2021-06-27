@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-    <title>CC50 Finanças: Register</title>
+    <title>CC50 Finanças: Quote</title>
   </head>
 
   <body>
@@ -23,30 +23,21 @@
     </div>
 
     <div id="middle">
-      <form action="register2.php" method="post">
+      <form action="quote2.php" method="post">
         <table>
           <tr>
-            <td>Usuário:</td>
-            <td><input name="username" type="text"></td>
+            <td>Símbolo da ação a ser consultada:</td>
+            <td><input name="symbol" type="text"></td>
           </tr>
-          <tr>
-            <td>Senha:</td>
-            <td><input name="password" type="password"></td>
-          </tr>
-          <tr>
-            <td>Repita senha:</td>
-            <td><input name="password2" type="password"></td>
-          </tr>
-          <tr>
             <td></td>
-            <td><input type="submit" value="Registrar"></td>
+            <td><input type="submit" value="Consultar Yahoo Finance"></td>
           </tr>
         </table>
       </form>
     </div>
 
     <div id="bottom">
-      ou <a href="login.php">logue-se</a> no site
+      ou <a href="index.php">voltar</a> para página inicial
     </div>
 
     <!-- <div id="bottom">

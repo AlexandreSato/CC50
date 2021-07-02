@@ -81,6 +81,9 @@
 
     function lookup($symbol)
     {
+        // Turn in uppercase
+        $symbol = strtoupper($symbol);
+        
         // reject symbols that start with ^
         if (preg_match("/^\^/", $symbol))
             return NULL;
@@ -114,12 +117,12 @@
         // remember stock's symbol and trades
         $stock->symbol = $symbol;
         $stock->timestamp = strtotime($data[0]);
-        $stock->time = $data[0];
+        $stock->time = date_create($data[0]);
         $stock->open = $data[1];
         $stock->high = $data[2];
         $stock->low = $data[3];
-        $stock->price = $data[4];
-        $stock->adjPrice = $data[5];
+        $stock->price = number_format($data[4], 2, ",", ".");
+        $stock->adjPrice = $data[5]; //number_format($data[5], 2, ",", ".");
         $stock->volume = $data[6];
 
         return $stock;

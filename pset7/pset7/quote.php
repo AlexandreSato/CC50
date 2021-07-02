@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-    <title>CC50 Finanças: Quote</title>
+    <title>&#129297; CC50 Finanças: Quote</title>
   </head>
 
   <body>
@@ -23,11 +23,11 @@
     </div>
 
     <div id="middle">
-      <form action="quote2.php" method="post">
+      <form action="quote2.php" method="post" onsubmit="return validateForm(this);">
         <table>
           <tr>
-            <td>Símbolo da ação a ser consultada:</td>
-            <td><input name="symbol" type="text"></td>
+            <td>Ação a ser consultada:</td>
+            <td><input name="symbol" type="text" autofocus placeholder="Símbolo ex.: GOOG NFLX TSLA" autocomplete="on" required ></td>
           </tr>
             <td></td>
             <td><input type="submit" value="Consultar Yahoo Finance"></td>
@@ -37,24 +37,14 @@
     </div>
 
     <div id="bottom">
-      ou <a href="index.php">voltar</a> para página inicial
+      <form action="index.php" method="post">
+          <p><input type="submit" value="voltar para página inicial" style="heigth:150px; width:200px;"> 
+      </form>
+      <form action="sell.php" method="post">
+          <p><input type="submit" value="vender" style="heigth:150px; width:200px;"> 
+      </form>
+      <a href="logout.php">log out</a>
     </div>
-
-    <!-- <div id="bottom">
-      Teste de texto
-      <?php
-        $arr = array("red"=>"login.php", "green"=>"register.php", "blue");
-        // $str = '<br>Teste de texto 2';
-        // $str .= '<br>Teste de texto 3';
-        // echo($arr);
-        // print_r($arr);
-        foreach($arr as $value => $link)
-        {
-          echo "<br> <a href=$link> $value </a>";
-        }
-      ?>
-    </div> -->
-
 
   </body>
 

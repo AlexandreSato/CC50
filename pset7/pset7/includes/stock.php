@@ -12,8 +12,14 @@
 
     class Stock
     {
+        // stock's symbol
+        public $symbol = NULL;
+
         // time at which the stock last changed hands (measured in the number
         // of seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
+        public $timestamp = NULL;
+
+        // time
         public $time = NULL;
 
         // most recent (business) day's opening price

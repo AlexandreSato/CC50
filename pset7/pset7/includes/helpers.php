@@ -169,4 +169,41 @@
         exit;
     }
 
+
+    /*
+     * void
+     * navigator($currentPage)
+     * 
+     * Build buttons with links to all pages
+     */
+     
+     function navigator($currentPage)
+     {
+        if ($currentPage != "index.php")
+            print('
+                <form action="index.php" method="post">
+                    <p><input type="submit" value="voltar para página inicial" style="heigth:150px; width:200px;"> 
+                </form>');
+        
+        if (!($currentPage == "quote.php" || $currentPage == "quote2.php"))
+            print ('
+                <form action="quote.php" method="post">
+                    <p><input type="submit" value="Consultar Valor Ação" style="heigth:150px; width:200px;"></p>
+                </form>');
+        
+        if ($currentPage != "sell.php")
+            print ('
+                <form action="sell.php" method="post">
+                    <p><input type="submit" value="vender" style="heigth:150px; width:200px;"> </p>
+                </form>');
+
+        if ($currentPage != "buy.php")
+            print ('
+                <form action="buy.php" method="post">
+                    <p><input type="submit" value="comprar" style="heigth:150px; width:200px;"> </p>
+                </form>');
+
+        print('<a href="logout.php">log out</a>');
+        //  print_r($currentPage);
+     }
 ?>

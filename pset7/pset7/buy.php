@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-    <title>&#129297; CC50 Finanças: Sell</title>
+    <title>&#129297; CC50 Finanças: Buy</title>
   </head>
 
   <body>
@@ -27,24 +27,19 @@
     </div>
 
     <div id="middle">
-      <form action="sell2.php" method="post">
-        <select name="symbol" required>
-          <option disabled selected value="">Símbolo da Ação</option>
-          <?php 
-            while($row = mysqli_fetch_array($custody))
-            {
-              print("<option value={$row["symbols"]}>{$row["symbols"]}</option>");
-            }
-          ?>
-        </select>
+      <form action="buy2.php" method="post">
         <table>
           <tr></tr><tr><td>                        </td></tr><tr></tr>
           <tr></tr><tr><td>                        </td></tr><tr></tr>
           <tr>
+            <td><input name="symbol" type="text" autofocus placeholder="Símbolo Ex.:GOOG, NFLX" autocomplete="on" required ></td>
+          </tr>
+          <tr>
+          <tr>
             <td><input name="shares" type="text" autofocus placeholder="Quantidade de cotas" autocomplete="on" required ></td>
           </tr>
           <tr>
-            <td><input type="submit" value="Venda!!"></td>
+            <td><input type="submit" value="Compre!!"></td>
           </tr>
         </table>
       </form>
@@ -53,8 +48,8 @@
     <br>
     <div id="bottom">
       <?php
-        /* invoking the function to draw the links */ 
-        navigator($path = basename($_SERVER["PHP_SELF"]));
+        /* invoking the voif function to draw the links excepts for: navigator("current page") */ 
+        navigator($currentPage = basename($_SERVER["PHP_SELF"]));
       ?>
     </div>
 

@@ -23,27 +23,25 @@
     </div>
 
     <div id="middle">
+      <p>Ação a ser consultada:</p>
       <form action="quote2.php" method="post" onsubmit="return validateForm(this);">
         <table>
           <tr>
-            <td>Ação a ser consultada:</td>
             <td><input name="symbol" type="text" autofocus placeholder="Símbolo ex.: GOOG NFLX TSLA" autocomplete="on" required ></td>
           </tr>
-            <td></td>
+          <tr>
             <td><input type="submit" value="Consultar Yahoo Finance"></td>
           </tr>
         </table>
       </form>
     </div>
 
+    <br>
     <div id="bottom">
-      <form action="index.php" method="post">
-          <p><input type="submit" value="voltar para página inicial" style="heigth:150px; width:200px;"> 
-      </form>
-      <form action="sell.php" method="post">
-          <p><input type="submit" value="vender" style="heigth:150px; width:200px;"> 
-      </form>
-      <a href="logout.php">log out</a>
+      <?php
+        /* invoking the function to draw the links */ 
+        navigator($path = basename($_SERVER["PHP_SELF"]));
+      ?>
     </div>
 
   </body>

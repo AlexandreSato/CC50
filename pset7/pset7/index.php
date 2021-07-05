@@ -81,14 +81,10 @@
     </div>
 
     <div id="bottom">
-      <form action="quote.php" method="post">
-          <p><input type="submit" value="Consultar Valor Ação" style="heigth:150px; width:200px;"> 
-      </form>
-      <form action="sell.php" method="post">
-          <p><input type="submit" value="vender" style="heigth:150px; width:200px;"> 
-      </form>
-
-      <a href="logout.php">log out</a>
+        <?php
+          /* invoking the function to draw the links */ 
+          navigator($path = basename($_SERVER["PHP_SELF"]));
+        ?>
     </div>
 
   </body>

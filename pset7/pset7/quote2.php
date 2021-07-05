@@ -30,27 +30,26 @@
         <br><br>A ação <?php print $stock->symbol; ?> atualmente custa US$ <?php print number_format($stock->adjPrice, 2, ",", "."); ?> <br> <?php print date_format($stock->time, "d/m/Y"); ?>
       </div>
 
-      <br><br><br>
+      <br>
+      <p>Deseja uma NOVA Consulta? Símbolo&colon;</p>
       <form action="quote2.php" method="post">
         <table>
-            <td>Deseja uma NOVA Consulta? Símbolo&colon;</td>
+          <tr>
             <td><input name="symbol" type="text" autofocus placeholder="Símbolo ex.: GOOG NFLX TSLA" autocomplete="on" required></td>
           </tr>
-            <td></td>
+          <tr>
             <td><input type="submit" value="Consultar Yahoo Finance"></td>
           </tr>
         </table>
       </form>
     </div>
 
+    <br>
     <div id="bottom">
-      <form action="index.php" method="post">
-          <p><input type="submit" value="voltar para página inicial" style="heigth:150px; width:200px;"> 
-      </form>
-      <form action="sell.php" method="post">
-          <p><input type="submit" value="vender" style="heigth:150px; width:200px;"> 
-      </form>
-      <a href="logout.php">log out</a>
+      <?php
+        /* invoking the function to draw the links */ 
+        navigator($path = basename($_SERVER["PHP_SELF"]));
+       ?>
     </div>
  
   </body>

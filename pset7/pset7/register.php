@@ -49,23 +49,6 @@
       ou <a href="login.php">logue-se</a> no site
     </div>
 
-    <!-- Teste para carregar html e links de uma array usando php -->
-    <!-- <div id="bottom">
-      Teste de texto
-      <?php
-        $arr = array("red"=>"login.php", "green"=>"register.php", "blue");
-        // $str = '<br>Teste de texto 2';
-        // $str .= '<br>Teste de texto 3';
-        // echo($arr);
-        // print_r($arr);
-        foreach($arr as $value => $link)
-        {
-          echo "<br> <a href=$link> $value </a>";
-        }
-      ?>
-    </div> -->
-
-
   </body>
 
 </html>

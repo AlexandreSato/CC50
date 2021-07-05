@@ -36,7 +36,8 @@
 
     <div id="middle">
       <!-- <img alt="Em construção" height="150" src="images/construction.gif" width="300"> -->
-      <br><br>
+      <?php print("<p>{$_SESSION["messages"]}</p>"); $_SESSION["messages"]=""; ?>
+      <br>
       <table style="text-align: left; border: 2px solid #155dc9; tr:nth-child(even){background-color: #5f5d5d;};">
         <tr style="text-align: left; border: 2px solid #155dc9; tr:nth-child(even){background-color: #5f5d5d;};"> 
           <th>Symbol</th>

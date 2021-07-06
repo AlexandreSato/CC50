@@ -23,10 +23,12 @@ if($cash_buy > $row["cash"])
     apologize("Não pode pagar &#128528;");
 
 // buying
+$dateTime = date("Y/m/d H:i:s",strtotime("now"));
 $sql = "
     INSERT INTO custody (uids, symbols, shares) VALUES ({$_SESSION["uid"]}, '$s->symbol', '$buy_shares')
     ON DUPLICATE KEY UPDATE shares = shares + '$buy_shares';
-    UPDATE users SET cash = cash - '$cash_buy' WHERE uid={$_SESSION["uid"]} 
+    UPDATE users SET cash = cash - '$cash_buy' WHERE uid={$_SESSION["uid"]};
+    INSERT INTO history (uids, symbols, shares, price, transacted) VALUES ({$_SESSION["uid"]}, '$s->symbol', '$buy_shares', '$s->adjPrice', '$dateTime')
 ";
 if($connection->multi_query($sql))
     $_SESSION["messages"] = "Comprado!";

@@ -14,7 +14,7 @@
 <html>
 
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <title>&#129297; CC50 Finanças: Buy</title>
@@ -29,14 +29,14 @@
     <div id="middle">
       <form action="buy2.php" method="post">
         <table>
-          <tr></tr><tr><td>                        </td></tr><tr></tr>
-          <tr></tr><tr><td>                        </td></tr><tr></tr>
+          <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+          <tr><td></td></tr>
           <tr>
-            <td><input name="symbol" type="text" autofocus placeholder="Símbolo Ex.:GOOG, NFLX" autocomplete="on" required ></td>
+            <td><input name="symbol" type="text" autofocus placeholder="Símbolo Ex.:GOOG, NFLX" autocomplete="off" required ></td>
           </tr>
+          <tr><td></td></tr>
           <tr>
-          <tr>
-            <td><input name="shares" type="text" autofocus placeholder="Quantidade de cotas" autocomplete="on" required ></td>
+            <td><input name="shares" type="text" placeholder="Quantidade de cotas" autocomplete="off" required ></td>
           </tr>
           <tr>
             <td><input type="submit" value="Compre!!"></td>

@@ -31,7 +31,11 @@ if($sale_shares == $row["shares"])
     $sql = "DELETE FROM custody WHERE uids={$_SESSION["uid"]} AND symbols='$symbols';";
 else
     $sql = "UPDATE custody SET shares = shares - '$sale_shares' WHERE uids={$_SESSION["uid"]} AND symbols='$symbols';";
-$sql .= "UPDATE users SET cash = cash + '$cash_sell' WHERE uid={$_SESSION["uid"]} ";
+$dateTime = date("Y/m/d H:i:s",strtotime("now"));
+$sql .= "
+    UPDATE users SET cash = cash + '$cash_sell' WHERE uid={$_SESSION["uid"]};
+    INSERT INTO history (uids, symbols, shares, price, transacted) VALUES ({$_SESSION["uid"]}, '$s->symbol', -'$sale_shares', '$s->adjPrice', '$dateTime')
+";
 if($connection->multi_query($sql))
     $_SESSION["messages"] = "Vendido!";
 else

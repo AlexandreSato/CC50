@@ -61,13 +61,5 @@ table
 td, th
 {
     border: 0;
-    /* border: 2px solid #155dc9; */
-    /* text-align: right; */
     padding: 5px;
 }
-
-/* striped table rows */
-/* tr:nth-child(even)
-{
-    background-color: #5f5d5d;
-} */

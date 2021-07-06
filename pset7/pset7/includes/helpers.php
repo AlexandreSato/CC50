@@ -179,31 +179,44 @@
      
      function navigator($currentPage)
      {
-        if ($currentPage != "index.php")
-            print('
-                <form action="index.php" method="post">
-                    <p><input type="submit" value="voltar para página inicial" style="heigth:150px; width:200px;"> 
-                </form>');
-        
+        $homepage = '
+            <form action="index.php" method="post">
+                <p><input type="submit" value="página inicial" style="height:50px; width:250px; font-size:30px; font-weight:bold"> 
+            </form>
+        ';
+       
         if (!($currentPage == "quote.php" || $currentPage == "quote2.php"))
             print ('
                 <form action="quote.php" method="post">
-                    <p><input type="submit" value="Consultar Valor Ação" style="heigth:150px; width:200px;"></p>
+                    <p><input type="submit" value="consultar" style="height:50px; width:250px; font-size:30px; font-weight:bold"></p>
                 </form>');
+        else
+            print($homepage);
         
         if ($currentPage != "sell.php")
             print ('
                 <form action="sell.php" method="post">
-                    <p><input type="submit" value="vender" style="heigth:150px; width:200px;"> </p>
+                    <p><input type="submit" value="vender" style="height:50px; width:250px; font-size:30px; font-weight:bold"> </p>
                 </form>');
-
+        else
+           print($homepage);
+    
         if ($currentPage != "buy.php")
             print ('
                 <form action="buy.php" method="post">
-                    <p><input type="submit" value="comprar" style="heigth:150px; width:200px;"> </p>
+                    <p><input type="submit" value="comprar" style="height:50px; width:250px; font-size:30px; font-weight:bold"> </p>
                 </form>');
-
+        else
+            print($homepage);
+      
+        if ($currentPage != "history.php")
+            print ('
+                <form action="history.php" method="post">
+                    <p><input type="submit" value="histórico" style="height:50px; width:250px; font-size:30px; font-weight:bold"> </p>
+                </form>');
+        else
+            print($homepage);
+      
         print('<a href="logout.php">log out</a>');
-        //  print_r($currentPage);
      }
 ?>

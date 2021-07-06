@@ -27,7 +27,7 @@
 
     <div id="middle">
       <div style="text-align: center">
-        <br><br>A ação <?php print $stock->symbol; ?> atualmente custa US$ <?php print number_format($stock->adjPrice, 2, ",", "."); ?> <br> <?php print date_format($stock->time, "d/m/Y"); ?>
+        <br><br>A ação <?php print $stock->symbol; ?> atualmente custa US$ <?php print number_format($stock->adjPrice, 2, ",", "."); ?> <br> <?php print (date_format($stock->time, "d/m/Y")); ?>
       </div>
 
       <br>
@@ -35,7 +35,7 @@
       <form action="quote2.php" method="post">
         <table>
           <tr>
-            <td><input name="symbol" type="text" autofocus placeholder="Símbolo ex.: GOOG NFLX TSLA" autocomplete="on" required></td>
+            <td><input name="symbol" type="text" autofocus placeholder="Símbolo ex.: GOOG NFLX TSLA" autocomplete="off" required></td>
           </tr>
           <tr>
             <td><input type="submit" value="Consultar Yahoo Finance"></td>

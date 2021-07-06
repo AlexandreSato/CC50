@@ -14,7 +14,7 @@
 <html>
 
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <title>&#129297; CC50 Finanças: Sell</title>
@@ -28,8 +28,8 @@
 
     <div id="middle">
       <form action="sell2.php" method="post">
-        <select name="symbol" required>
-          <option disabled selected value="">Símbolo da Ação</option>
+        <select name="symbol" required autofocus>
+          <option disabled selected value="" autocomplete="off">Símbolo da Ação</option>
           <?php 
             while($row = mysqli_fetch_array($custody))
             {
@@ -38,10 +38,10 @@
           ?>
         </select>
         <table>
-          <tr></tr><tr><td>                        </td></tr><tr></tr>
-          <tr></tr><tr><td>                        </td></tr><tr></tr>
+          <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+          <tr><td></td></tr>
           <tr>
-            <td><input name="shares" type="text" autofocus placeholder="Quantidade de cotas" autocomplete="on" required ></td>
+            <td><input name="shares" type="text" placeholder="Quantidade de cotas" autocomplete="off" required ></td>
           </tr>
           <tr>
             <td><input type="submit" value="Venda!!"></td>

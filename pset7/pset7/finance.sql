@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `custody` (
   `symbols` varchar(255) NOT NULL,
   `shares` int(255) unsigned NOT NULL,
   PRIMARY KEY (`uids`, `symbols`),
-  FOREIGN KEY (`uids`) REFERENCES uses(`uid`)
+  FOREIGN KEY (`uids`) REFERENCES users(`uid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 --
@@ -68,3 +68,18 @@ INSERT INTO `custody` (`uids`, `symbols`, `shares`) VALUES
 (2, 'NFLX', 2),
 (3, 'TSLA', 3),
 (4, 'VALE', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history`
+--
+
+CREATE TABLE IF NOT EXISTS `history` (
+  `uids` int(10) unsigned NOT NULL,
+  `symbols` varchar(255) NOT NULL,
+  `shares` int(255)  NOT NULL,
+  `price` varchar(255) NOT NULL,
+  `transacted` datetime NOT NULL,
+  FOREIGN KEY (`uids`) REFERENCES users(`uid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;

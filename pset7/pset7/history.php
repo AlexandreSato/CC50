@@ -23,7 +23,7 @@
   <body>
     <div id="top">
       <a href="index.php"><img alt="CC50 Finanças" src="images/logo.png" style="height: 200px;"></a>
-      <p>Clique no Logo para voltar a página inicial</p>
+      <p>Clique no Logo para voltar à página inicial</p>
     </div>
 
 

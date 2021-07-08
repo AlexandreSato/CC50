@@ -22,6 +22,9 @@
         // cache uid in session
         $_SESSION["uid"] = $row["uid"];
 
+	// saudation welcome back
+	$_SESSION["messages"] = "Bem vindo de volta " . $username;
+
         // redirect to portfolio
         redirect("index.php");
     }

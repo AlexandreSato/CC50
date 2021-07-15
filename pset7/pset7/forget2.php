@@ -73,10 +73,10 @@ $forgted_mail = $row["mail"];
     $mail->Username = "alexandrenoburaru@gmail.com";
 
     // set gmail password
-    $mail->Password = "";
+    $mail->Password = GMAIL_PASS;
 
     // set email subject
-    $mail->Subject = "Recuperacao de sua senha do site CC50 Finanças";
+    $mail->Subject = "Recuperacao de sua senha do site CC50 Financas";
 
     // set sender email
     $mail->setFrom("alexandrenoburaru@gmail.com");

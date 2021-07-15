@@ -27,15 +27,20 @@
         <table>
           <tr>
             <td>Usuário:</td>
-            <td><input name="username" type="text"></td>
+            <td><input name="username" type="text" autofocus placeholder="Usuário" autocomplete="off" required></td>
           </tr>
           <tr>
             <td>Senha:</td>
-            <td><input name="password" type="password"></td>
+            <td><input name="password" type="password" placeholder="Senha" autocomplete="off" required></td>
           </tr>
           <tr>
             <td>Repita senha:</td>
-            <td><input name="password2" type="password"></td>
+            <td><input name="password2" type="password" placeholder="Repita Senha" autocomplete="off" required></td>
+          </tr>
+          <tr>
+          <tr>
+            <td>E-mail para recuperação de senha:</td>
+            <td><input name="mail" type="text" placeholder="E-mail p/ recuperação" autocomplete="off" required></td>
           </tr>
           <tr>
             <td></td>

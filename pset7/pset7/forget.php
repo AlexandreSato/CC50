@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-    <title>&#129297; CC50 Finanças: Log in</title>
+    <title>&#129297; CC50 Finanças: Forget</title>
   </head>
 
   <body>
@@ -23,29 +23,28 @@
     </div>
 
     <div id="middle">
-      <?php print("<p>{$_SESSION["messages"]}</p>"); $_SESSION["messages"]=""; ?>
-      <form action="login2.php" method="post">
+      <p>Preencha um dos campos abaixo</p>
+      <form action="forget2.php" method="post">
         <table>
           <tr>
             <td>Usuário:</td>
-            <td><input name="username" type="text" autofocus placeholder="Usuário" autocomplete="off" required></td>
+            <td><input name="username" type="text" autofocus placeholder="Usuário" autocomplete="off" ></td>
           </tr>
           <tr>
-            <td>Senha:</td>
-            <td><input name="password" type="password" autofocus placeholder="Senha" autocomplete="off" required></td>
+            <td>E-mail para recuperação de senha:</td>
+            <td><input name="mail" type="text" placeholder="E-mail p/ recuperação" autocomplete="off" ></td>
           </tr>
           <tr>
             <td></td>
-            <td><input type="submit" value="Log In"></td>
+            <td><input type="submit" value="Envie-me !"></td>
           </tr>
         </table>
       </form>
     </div>
 
     <div id="bottom">
-      <a href="forget.php">esqueci</a> minha senha!! ou <a href="register.php">registre-se</a> no site
+      ou <a href="login.php">logue-se</a> no site
     </div>
-
 
   </body>
 

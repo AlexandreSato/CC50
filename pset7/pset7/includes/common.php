@@ -25,7 +25,7 @@
     require_once("stock.php");
 
     // require authentication for most pages
-    if (!preg_match("/(:?log(:?in|out)|register)\d*\.php$/", $_SERVER["PHP_SELF"]))
+    if (!preg_match("/(:?log(:?in|out)|register|forget)\d*\.php$/", $_SERVER["PHP_SELF"]))
     {
         if (!isset($_SESSION["uid"]))
             redirect("login.php");

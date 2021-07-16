@@ -43,7 +43,7 @@
     </div>
 
     <div id="bottom">
-      ou <a href="login.php">logue-se</a> no site
+      ou <a href="register.php">registre-se</a> no site
     </div>
 
   </body>

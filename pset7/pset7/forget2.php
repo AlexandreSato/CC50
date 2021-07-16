@@ -84,6 +84,9 @@ $forgted_mail = $row["mail"];
     // enable HTML
     $mail->isHTML(true);
 
+    // attachment
+    $mail->addAttachment("images/logo.png");
+
     // email body
     $mail->Body = "<h1>O seu nome de usuario e :" .$forgted_user. "</h1><br><h2>E a sua senha e: " .$forgted_pass. "</h2>";
 

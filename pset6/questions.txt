@@ -83,7 +83,7 @@ a função que recebe a variável não pode alterar o ponteiro mas pode alterar 
 7. Qual estrutura de dado(s) você usou para implementar o seu corretor ortográfico? Certifique-se
 de não responder apenas "hash table", "trie", ou coisa parecida. Fale um pouco sobre o que
 está dentro de cada um dos seus "nós".
-R: Eu utilizei uma lista encadeada, onde cada item da lista possui um indicador booleano indicando
+R: Eu utilizei (trie) uma lista encadeada, onde cada item da lista possui um indicador booleano indicando
 se é o final ou não de uma palavra e 26 nós ponteiros para a mesma estrutura chamado de filhos, onde 
 cada um deles corresponde ao caracter da palavra, por exemplo: A ou a = node->son[1], B ou b = node-
 ->son[2], C ou c = node->son[3], etc ... Deste mode quando a função check() percorre pelo vetor de 
